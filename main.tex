@@ -1,0 +1,71 @@
+\documentclass[a4paper, twoside, openany, 12pt, english, final]{memoir}
+% Add [final] to remove marginal notes
+
+\usepackage{verifyThesisStyle}           % Custom style
+\usepackage{kantlipsum}      % Dummy text
+\usepackage[dvipsnames]{xcolor} % Colors
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[most]{tcolorbox}
+\usepackage{booktabs}
+
+\setlrmarginsandblock{2.5cm}{2.5cm}{*}
+\setulmarginsandblock{2cm}{2cm}{*}
+\checkandfixthelayout%
+
+\setcounter{tocdepth}{2} %include subsections in ToC
+\setcounter{secnumdepth}{2} %include subsections in ToC
+
+\title{Title}
+\author{Author}
+
+\includeonly
+{
+    sections/abstract,
+    sections/acknowledgements,
+    sections/introduction,
+    sections/chapter2,
+    sections/chapter3,
+    sections/chapter4,
+    sections/conclusion,
+}
+
+\begin{document}
+
+    \frontmatter        % Folios in Roman numerals, unnumbered chapters.
+
+    % Set up the Title Page
+    \title{A Very Nice Bachelor Topic}
+    \authors{Jan-Christoph Kassing}
+                
+    \addresses  {\groupname\\\deptname\\\univname}
+    \date       {\today}
+    \subject    {}
+    \keywords   {}
+
+    \maketitle
+    
+    % Chapter style is defined globally in verifyThesisStyle.sty (verifymodern).
+
+    \include{sections/abstract}
+    \include{sections/acknowledgements}
+
+    \microtypesetup{protrusion = false}
+    \tableofcontents
+    \microtypesetup{protrusion = true}
+
+    \mainmatter         % Folios in Arabic numerals, numbered chapters.
+
+    \include{sections/introduction}
+    \include{sections/chapter2}
+    \include{sections/chapter3}
+    \include{sections/chapter4}
+    \include{sections/conclusion}
+
+    \backmatter         % Folios in Arabic numerals, unnumbered chapters.
+    
+    \bibliographystyle{plain}  % Use the "unsrtnat" BibTeX style for formatting the Bibliography
+    \bibliography{Bibliography}  % The references (bibliography) information are stored in the file named "Bibliography.bib"
+
+\end{document}

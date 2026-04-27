@@ -1,0 +1,156 @@
+\chapter{Preliminaries}\label{chap:preliminaries}
+
+The opening paragraph of a chapter should briefly outline the chapter structure 
+by naming each section and stating what it covers.
+
+In the preliminaries you can name the formalism studied (e.g., term rewriting 
+systems, integer transition systems, probabilistic programs) and cite a 
+standard reference for further reading, e.g., \cite{baader_nipkow_1999}. 
+Do not add a citation to every definition.
+%-----------------------------------------------------------------------
+\section{Basic Definitions}\label{sec:basic-definitions}
+%-----------------------------------------------------------------------
+
+Introduce the formal objects of the theory bottom-up: start with the most
+elementary notion (e.g., the syntactic objects) and build towards the
+property of interest (e.g., termination, complexity).
+
+Each definition in this section should be accompanied by:
+\begin{enumerate}
+    \item A sentence stating what the definition formalizes and why it is needed.
+    \item The formal statement in a Definition box.
+    \item A brief explanation of each component of the definition.
+    \item At least one example.
+\end{enumerate}
+
+Cover the following in order:
+\begin{enumerate}
+    \item \textbf{Syntactic Objects.} Define the elementary building blocks
+          of the formalism (e.g., the signature and the set of terms, the
+          program syntax, the set of states and transitions).
+    \item \textbf{Evaluation Relation.} Define how one object
+          evaluates to another. If several strategies exist, introduce them
+          here and state which one is used in the rest of the thesis.
+    \item \textbf{Derived Notions.} Define derived concepts such as normal
+          forms, reachability, derivation lengths, etc.
+    \item \textbf{The Property of Interest.} Give the formal definition of
+          the property the thesis analyzes (e.g., termination, innermost
+          complexity, almost-sure termination).
+\end{enumerate}
+
+% --- EXAMPLE: style illustration from a thesis on term rewriting ---
+% Replace the definitions below with those relevant to your own topic.
+
+In the begging, we start by defining [Basic Notion] that is used throughout the 
+remainder of this thesis.
+
+\begin{Definition}{[Name of First Basic Notion]}{first-notion}
+    A [Thing] is [Basic Notion] if it satisfies [Property 1] and [Property 2].
+    % Define the most elementary object of the formalism.
+    % Example (term rewriting): the signature and the set of terms.
+\end{Definition}
+
+The reason for requiring [Property 1] is [...]. 
+[Property 2] is generally assumed in the literature.
+% Explain the definition in one or two sentences, then give an example.
+
+\begin{example}\label{ex:first-notion}
+    % Illustrate the definition on a small, concrete input.
+    % If you use the same running example throughout the chapter, introduce
+    % it here and mark it as the running example.
+\end{example}
+
+\begin{example}\label{ex:first-notion-second-example}
+    % You can add several examples for one definition, if the definition 
+    % is complex and hard to understand.
+\end{example}
+
+
+%-----------------------------------------------------------------------
+\section{Known Results from the Literature}\label{sec:known-results}
+%-----------------------------------------------------------------------
+
+Present the lemmas and theorems from the literature that are used in
+\cref{chap:main-chapter}. 
+You do not have to prove these results unless the proof is insightful for the 
+rest of the thesis. 
+Always cite the original source.
+%
+Each result in this section should be presented as follows:
+\begin{enumerate}
+    \item A sentence explaining why the result is important and how it will
+     be used in the thesis.
+     \item The formal statement in a Lemma or Theorem box, with a citation in
+     the title.
+     \item A proof indication: either a short proof, ``Proof: see 
+     \cite{replace-with-citation}'', or a forward reference to the appendix.
+     \item (Optional) A brief remark on the scope or limitations of the result
+     if that is relevant for understanding its use in \cref{chap:main-chapter}.
+\end{enumerate}
+
+This section collects known results from the literature that are used in the
+rest of the thesis.
+Organize them as follows:
+\begin{enumerate}
+    \item \textbf{Auxiliary lemmas.} State small technical results about the
+          basic objects from \Cref{sec:basic-definitions} (e.g., properties
+          of substitution, closure conditions, or monotonicity).
+          These are typically needed in the proofs of \Cref{chap:main-chapter}.
+
+    \item \textbf{Characterization theorem(s).} State the main theoretical
+          results from the literature about the property of interest.
+          These serve as a reference point for understanding what is already
+          known.
+
+    \item \textbf{Existing automated technique(s).} If the thesis extends an
+          existing automated method (e.g., dependency pairs, polynomial
+          interpretations, ranking functions), state its correctness theorem
+          here.
+\end{enumerate}
+
+% --- Example entries (replace with results relevant to your topic) ---
+
+\begin{Lemma}{[Name of Auxiliary Lemma], \cite{giesl2006mechanizing}}{aux-lemma}
+    A Lemma is a small result or auxiliary result, which is only interesting because 
+    we can use it to prove the main result.
+\end{Lemma}
+
+\begin{proof}
+    The complete proof can be found in \cite{giesl2006mechanizing}.
+\end{proof}
+
+\begin{Theorem}{[Name of Key Theorem], \cite{giesl2006mechanizing}}{key-theorem}
+    A Theorem is one of the main results. Everything else is defined and proven such
+    that this results can be proven.
+\end{Theorem}
+
+\begin{proof}
+    The complete proof can be found in \cite{giesl2006mechanizing}.
+\end{proof}
+
+\begin{example}
+    Apply the theorem above to a concrete example.
+    Demonstrate both a case where the result applies successfully and,
+    if possible, a case where it fails due to the restriction identified above.
+    The failing case motivates the extension in \cref{chap:main-chapter}.
+\end{example}
+
+\begin{Corollary}{[Name of a Direct Consequence], \cite{giesl2006mechanizing}}{key-corollary}
+    A Corollary is a (easy) consequence of some other (main) result. 
+    Still, it has to be proven, even if the proof is rather simple!
+\end{Corollary}
+
+\begin{proof}
+    The complete proof can be found in \cite{giesl2006mechanizing}.
+\end{proof}
+
+\begin{example}
+
+\end{example}
+
+% Add further Lemma and Theorem boxes as needed.
+
+You can use \textcolor{ForestGreen}{colors} to highlight differences in boxes 
+or even difficult parts in proofs. 
+However, do not make the colors too distracting and everything has to be
+readable in black and white as well.

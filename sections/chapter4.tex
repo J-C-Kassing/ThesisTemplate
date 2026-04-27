@@ -1,0 +1,98 @@
+\chapter{Evaluation}\label{chap:evaluation}
+
+This chapter demonstrates that the approach from \cref{chap:main-chapter}
+works in practice.
+
+A good evaluation chapter:
+\begin{itemize}
+      \item Describes clearly what was implemented and where.
+      \item Explains the experimental setup with enough detail to be reproducible.
+      \item Presents results honestly, including cases where the technique does not help.
+      \item Interprets the numbers and connects them back to the theory.
+\end{itemize}
+
+%-----------------------------------------------------------------------
+\section{Implementation}\label{sec:implementation}
+%-----------------------------------------------------------------------
+
+The implementation section should cover:
+\begin{enumerate}
+    \item The name of the tool extended and a brief description of its overall
+          architecture (e.g., the pipeline from input parsing to proof output). 
+          and any external solvers used.
+    \item Which module(s) you added or changed and how they fit into the existing 
+          architecture.
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+\section{Experimental Setup}\label{sec:setup}
+%-----------------------------------------------------------------------
+
+The experimental setup should specify:
+\begin{enumerate}
+    \item \textbf{Benchmark set.}
+          Which set was used (e.g., TPDB, TermComp, SV-COMP, or a custom set)?
+          How many examples total?  
+          Are there relevant subsets by category, strategy, or problem type?
+
+    \item \textbf{Configurations compared.}
+          At minimum include the unmodified baseline and the tool with your
+          extension. 
+          List any competing tools with a brief description.
+
+    \item \textbf{Hardware and time limits.}
+          CPU model, amount of RAM, operating system, and per-example
+          wall-clock timeout.
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+\section{Results}\label{sec:results}
+%-----------------------------------------------------------------------
+
+The results section should:
+\begin{enumerate}
+    \item Present results in a table (see \cref{tab:results}).
+    \item Summarize the headline finding directly below the table, citing concrete
+          numbers (additional YES answers, percentage improvement, overhead in seconds).
+    \item Point out interesting subsets or individual examples where the technique
+          is especially effective and where the technique is not effective.
+    \item Note any surprising results to be discussed in \cref{sec:discussion}.
+\end{enumerate}
+
+\Cref{tab:results} summarizes the results of our experiments.
+
+\begin{table}[H]
+    \centering
+    \caption{Experimental results on [\textit{benchmark set name}].
+             \emph{YES}/\emph{NO} denotes the number of examples for which
+             [\textit{the property / its negation}] was proved.
+             \emph{MAYBE} means the tool returned no answer.
+             \emph{TO} means the timeout was exceeded.
+             \emph{Time} is the total wall-clock time in seconds.}
+    \label{tab:results}
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{Configuration} &
+        \textbf{YES} & \textbf{NO} & \textbf{MAYBE}& \textbf{Avg.~Time~(s)} \\
+        \midrule
+        \textit{Tool without extension} & -- & -- & -- & -- \\
+        \textit{Tool with extension}    & -- & -- & -- & -- \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+%-----------------------------------------------------------------------
+\section{Discussion}\label{sec:discussion}
+%-----------------------------------------------------------------------
+
+The discussion should address the following questions:
+\begin{enumerate}
+    \item Do the results match theoretical expectations from \cref{chap:main-chapter}?
+          If not, explain why.
+    \item On which types of examples does the technique help most? 
+          Identify structural properties of the benchmark examples that explain the gain.
+    \item Are there cases where the technique does not help or is slower?
+          Explain the reason and relate it to the theoretical properties.
+    \item What are the main limitations and how could they be overcome?
+          (This can bridge to the future work discussion in \cref{chap:conclusion}.)
+\end{enumerate}

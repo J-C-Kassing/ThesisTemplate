@@ -1,0 +1,85 @@
+\chapter{[\textit{Title of Your Main Contribution}]}\label{chap:main-chapter}
+
+This chapter contains the main theoretical (and possibly technical) contribution
+of the thesis.  It should present a coherent body of new results, organized
+into sections.
+
+For a theory-focused thesis: introduce new notions, state lemmas/theorems,
+provide proofs, and illustrate results with examples.
+For an implementation-focused thesis: additionally describe the algorithm,
+key design decisions, and data structures.
+
+The opening paragraph of this chapter should cover the following points:
+\begin{enumerate}
+    \item State what new objects, criteria, or techniques this chapter introduces.
+    \item Introduce a running example that will be used throughout to illustrate
+          each new definition and result.
+    \item Outline the chapter structure by referencing the main sections.
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+\section{[\textit{Central Definitions / The New Framework}]}\label{sec:main-definitions}
+%-----------------------------------------------------------------------
+
+% Introduce the key new notions.
+% Follow the style of \cref{chap:preliminaries}: state each definition formally,
+% add a brief intuitive explanation, and accompany it with at least one example.
+% Move from simple to complex.
+
+For self-introduced notions it is even more important to explain everything
+and used multiple examples to illustrate everything.
+Use one running example that can be used through the whole section 
+and maybe some additional small examples to highlight special cases.
+
+\begin{Definition}{[\textit{Name of Your First Definition}]}{key1}
+
+\end{Definition}
+
+\begin{example}\label{ex:key1}
+
+\end{example}
+
+% Add further Definition boxes as needed, each followed by an explanation and example.
+
+%-----------------------------------------------------------------------
+\section{[\textit{Main Results}]}\label{sec:main-results}
+%-----------------------------------------------------------------------
+
+Each result in this section should be presented as follows:
+\begin{enumerate}
+    \item State and prove all auxiliary lemmas before the main theorem.
+    \item State the main theorem.  Typical statements are:
+          \begin{itemize}
+              \item \textbf{Soundness:} If the technique returns \textsc{Yes},
+                    then the property holds.
+              \item \textbf{Completeness:} If the property holds, the technique
+                    returns \textsc{Yes}.
+              \item \textbf{Equivalence:} The new criterion holds if and only if
+                    an existing criterion holds.
+          \end{itemize}
+    \item Provide a complete proof, structured into numbered cases for long
+          arguments.  Reference definitions and earlier results by label.
+    \item Apply the theorem to the running example from \cref{ex:key1},
+          walking through every step explicitly.
+\end{enumerate}
+
+\begin{Lemma}{[\textit{Name of Auxiliary Lemma}]}{auxiliary}
+
+\end{Lemma}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{Theorem}{[\textit{Name of Main Theorem, e.g., Soundness}]}{main}
+
+\end{Theorem}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{example}\label{ex:main}
+    Apply \Cref{thm:main} to the running example from \cref{ex:key1}.
+    Walk through every step of the argument explicitly.
+\end{example}

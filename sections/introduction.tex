@@ -1,0 +1,88 @@
+\chapter{Introduction}
+
+The introduction motivates the topic and provides an overview of the thesis.
+It can be seen as a longer version of the abstract that follows the hourglass 
+structure again, but with emphasis on the top part of the hourglass.
+However, you can now use citations and explain everything in more detail.
+It should be accessible to any computer scientist without prior knowledge of 
+the specific area.
+
+%-----------------------------------------------------------------------
+% Background and Motivation
+%-----------------------------------------------------------------------
+
+The background and motivation part should cover the following points:
+\begin{enumerate}
+    \item Name the research area and describe informally what objects are
+          studied (e.g., terms, integer programs, Java programs, automata) and
+          what property is of interest (e.g., termination, complexity, safety).
+    \item Explain why the property matters.
+    \item Give a small, self-contained example that illustrates the problem informally.
+    \item Explain why answering the question automatically is non-trivial and
+          what makes the problem hard in general.
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+% The Specific Open Problem
+%-----------------------------------------------------------------------
+
+The open-problem part should contain:
+\begin{enumerate}
+    \item A summary of what is already known in the area (prior results,
+          existing automated techniques, tool support).
+    \item A precise identification of the gap: e.g., no automated procedure
+          exists, existing techniques are unsound or incomplete for a relevant
+          subclass, or no efficient algorithm is known.
+    \item A clear statement of what this thesis aims to achieve.
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+% Related Work
+%-----------------------------------------------------------------------
+
+\subsection*{Related Work}
+
+Discuss the most relevant prior work.
+For each cited work, address the following:
+\begin{enumerate}
+    \item What does the work do? Describe the approach in one to three
+          sentences and do not just list references.
+    \item How does it relate to this thesis? Does it solve a special case,
+          use a different technique, or target a different formalism?
+    \item What limitation motivates your own contribution?
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+% Contributions
+%-----------------------------------------------------------------------
+
+\subsection*{Contribution}
+
+List one item per concrete contribution. 
+Each item should:
+\begin{enumerate}
+    \item Identify what is new (a technique, a criterion, a framework, an
+          implementation, or an experimental evaluation).
+    \item State the property proved, if applicable (soundness, completeness,
+          both, or a complexity bound).
+    \item Reference the theorem, or section in which the contribution appears.
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+% Thesis Structure
+%-----------------------------------------------------------------------
+
+\subsection*{Structure}
+
+End the introduction by outlining the remaining chapters.
+Give at least one sentence per chapter describing its content. 
+Do not simply write ``Chapter~X presents the main results.'' 
+
+Example: ``The remainder of this thesis is organized as follows.
+\Cref{chap:preliminaries} introduces the formal background required throughout
+this thesis, including \ldots
+Then, \Cref{chap:main-chapter} presents \ldots
+\Cref{chap:evaluation} describes the implementation and the experimental
+evaluation.
+Finally, \Cref{chap:conclusion} summarizes the results and discusses directions for
+future work.''

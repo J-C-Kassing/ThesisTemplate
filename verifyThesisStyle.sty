@@ -1,0 +1,1398 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{verifyThesisStyle}[2026 LaTeX Style for PLV Thesis']
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Silence warning about obsolete package
+\RequirePackage{silence}
+\WarningFilter{filehook}{Macro}
+
+
+%% Standalone
+\RequirePackage{standalone}
+
+
+%% Encoding
+\RequirePackage[utf8]{inputenx}
+\RequirePackage[T1]{fontenc}
+
+
+%% Fonts and typography
+\RequirePackage{lmodern}           % Latin Modern
+\renewcommand{\sfdefault}{phv}     % Helvetica
+\RequirePackage[scaled]{beramono}  % Bera Mono (Bitstream Vera Sans Mono)
+\RequirePackage[final]{microtype}  % Improved typography
+\pretolerance = 1000               % Relaxes parameters for line breaks
+\tolerance    = 2000               % Relaxes parameters for line breaks
+\setlength{\emergencystretch}{1em} % Relaxes parameters for line breaks
+\RequirePackage{siunitx}           % Typesetting units
+\RequirePackage{listings}          % Typesetting code
+\lstset
+{
+    basicstyle       = \ttfamily\footnotesize,
+    commentstyle     = \color{gray},
+    stringstyle      = \itshape,
+    showstringspaces = false,
+    frame            = tb
+}
+\RequirePackage[obeyspaces,
+                spaces,
+                hyphens]{url}      % Typesetting URLs
+\urlstyle{sf}
+
+%% Style
+\RequirePackage[most]{tcolorbox}
+
+%% Mathematics
+\RequirePackage{amssymb}    % Extra symbols
+\RequirePackage{amsthm}     % Theorem-like environments
+\RequirePackage{thmtools}   % Theorem-like environments, extends amsthm
+\RequirePackage{mathtools}  % Fonts and environments for mathematical formulae
+\RequirePackage{mathrsfs}   % Script font with \mathscr{}
+\RequirePackage{dsfont}     % Double stroke font with \mathds{}
+\RequirePackage{cancel}     % Cancel terms with \cancel, \bcancel or \xcancel
+\RequirePackage{stmaryrd}   % Brackets
+\everymath
+{
+    \ifodd\value{page}          % Allow multiline equations
+        \allowdisplaybreaks[1]  % to break across two pages:
+        \else                   % - Breaks from odd to even pages are allowed,
+        \allowdisplaybreaks[4]  %   but discouraged.
+    \fi                         % - Breaks from even to odd pages are allowed.
+}
+
+
+%% Language
+\RequirePackage{babel}
+\RequirePackage{csquotes}
+
+
+%% Graphics
+\RequirePackage[dvipsnames,
+                svgnames,
+                cmyk]{xcolor}     % Pre-defined colors
+\RequirePackage{graphicx}         % Tool for importing images
+\graphicspath{{figures/}}
+\RequirePackage{tikz}             % Drawing tool
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usetikzlibrary{intersections}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{backgrounds}
+
+
+%% Organising tools
+\RequirePackage{etoolbox}                                % Hooks
+\RequirePackage{pgffor}                                  % For-loops
+\RequirePackage{comment}                                 % Multiline comments
+\RequirePackage[notref, notcite]{showkeys}               % Labels in margins
+\RequirePackage{makecell}
+\renewcommand{\showkeyslabelformat}[1]
+{
+    \fbox
+    {
+        \parbox[t]{0.6\marginparwidth}
+        {
+            \centering\normalfont\footnotesize\ttfamily
+            \path{#1}
+        }
+    }
+}
+\RequirePackage[obeyFinal,
+                color       = LightGray,
+                bordercolor = LightGray,
+                textsize    = footnotesize,
+                figwidth    = 0.99\linewidth]{todonotes} % Marginal notes
+                
+\usepackage{multicol}
+\usepackage{vwcol}  
+
+
+%% Lists
+\RequirePackage{enumitem}
+\setlist[itemize]    {font = \upshape,           before = \leavevmode}
+\setlist[enumerate]  {font = \upshape,           before = \leavevmode}
+\setlist[description]{font = \bfseries\sffamily, before = \leavevmode}
+\foreach \env in {theorem, corollary, lemma, proposition, observation,
+                  conjecture, definition, example, notation, remark}
+{
+    \AtBeginEnvironment{\env}
+    {
+        \setlist[enumerate, 1]{wide,
+                               label = \thetheorem.\arabic{*}.,
+                               ref   = \thetheorem.\arabic{*}}
+    }
+}
+
+
+%% Miscellaneous
+\RequirePackage{xspace}         % Clever space
+\RequirePackage{textcomp}       % Extra symbols
+\RequirePackage{multirow}       % Rows spanning multiple lines in tables
+\RequirePackage{tablefootnote}  % Footnotes for tables
+
+
+%% Cross references
+\RequirePackage{varioref}
+\RequirePackage[pdfusetitle]{hyperref}
+\RequirePackage[nameinlink, capitalize, noabbrev]{cleveref}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MEMOIR SETTINGS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% General
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+%% Title page
+
+\newcommand*{\supervisor}[1]{\def\supname{#1}}
+\newcommand*{\examiner}[1]{\def\examname{#1}}
+\newcommand*{\degree}[1]{\def\degreename{#1}}
+\newcommand*{\authors}[1]{\def\authornames{#1}}
+\newcommand*{\addresses}[1]{\def\addressnames{#1}}
+\newcommand*{\university}[1]{\def\univname{#1}}
+\newcommand*{\UNIVERSITY}[1]{\def\UNIVNAME{#1}}
+\newcommand*{\department}[1]{\def\deptname{#1}}
+\newcommand*{\DEPARTMENT}[1]{\def\DEPTNAME{#1}}
+\newcommand*{\group}[1]{\def\groupname{#1}}
+\newcommand*{\GROUP}[1]{\def\GROUPNAME{#1}}
+\newcommand*{\faculty}[1]{\def\facname{#1}}
+\newcommand*{\FACULTY}[1]{\def\FACNAME{#1}}
+\newcommand*{\subject}[1]{\def\subjectname{#1}}
+\newcommand*{\keywords}[1]{\def\keywordnames{#1}}
+\supervisor  {}
+\examiner    {}
+\degree      {}
+\authors     {}
+\university  {{Rheinisch-Westfälische Technische Hochschule Aachen}}
+\UNIVERSITY  {{Rheinisch-Westfälische Technische Hochschule Aachen}}
+\department  {Programming Languages and Verification}
+\DEPARTMENT  {Programming Languages and Verification}
+\faculty     {Lehr- und Forschungsgebiet Informatik 2}
+\FACULTY     {Lehr- und Forschungsgebiet Informatik 2}
+\addresses   {}
+\subject     {}
+\keywords    {}
+
+\pretitle{\begin{center}\huge\sffamily\bfseries\boldmath}
+\renewcommand\maketitle{
+  \hypersetup{pdftitle={\@title}}
+  \hypersetup{pdfsubject=\subjectname}
+  \hypersetup{pdfauthor=\authornames}
+  \hypersetup{pdfkeywords=\keywordnames}
+  \thispagestyle{empty}
+  {
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \let \footnote \thanks
+    \setcounter{footnote}{0}
+    \null\vfil
+    \vskip 60\p@
+    \begin{center}
+      \setlength{\parskip}{0pt}
+      {\large\textbf{\UNIVNAME}\par}
+      \vfill
+      {\huge Bachelor Thesis \par}
+      \smallskip
+      {\huge \textbf{\@title} \par}
+      \vfill
+      {\LARGE by \par}
+      \smallskip
+      {\LARGE \authornames \par}
+      \vfill
+      \bigskip
+      \bigskip
+      {\large \facname \par}
+      {\large \deptname \par}
+      \bigskip
+      \bigskip
+      First Examiner: \hfill Second Examiner:\\
+      Prof. Dr. Examiner 1 \hfill Prof. Dr. Examiner 1\\
+      \bigskip
+      \bigskip
+      {\Large \@date \par}
+      \bigskip
+    \end{center}
+    \par
+    \@thanks
+    \vfil\null
+  }
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+  \cleardoublepage
+}
+
+
+%% Book
+\renewcommand*{\printbooktitle}[1]
+{
+    \hrule\vskip\onelineskip
+    \centering\booktitlefont #1
+    \vskip\onelineskip\hrule
+}
+\renewcommand*{\afterbookskip}{\par}
+\renewcommand*{\booktitlefont}{\Huge\bfseries\boldmath\sffamily}
+\renewcommand*{\booknamefont}{\normalfont\huge\bfseries\MakeUppercase}
+
+
+%% Chapter  (titlesec display style)
+%
+% Design: two stacked rules above the chapter label, a single rule below it,
+% then the chapter title in Huge sffamily — all centered, monochrome.
+%
+% titlesec is loaded below; \titleformat{\chapter} supersedes memoir's
+% \makechapterstyle mechanism, so no \makechapterstyle call is needed.
+
+
+%% Lower level sections  (titlesec — overrides memoir's \setsecheadstyle family)
+% Note: titlesec redefines \@startsection and therefore supersedes memoir's
+% \setsecheadstyle / \setsubsecheadstyle etc.  Those commands are intentionally
+% not used here.
+\RequirePackage{titlesec}
+
+% ------------------------------------------------------------------
+%  \chapter  — centered display, double rule / single rule sandwich
+% ------------------------------------------------------------------
+\titleformat{\chapter}[display]
+  {\normalfont\Large\filcenter\sffamily}
+  {%
+    \titlerule%
+    \vspace{2pt}%
+    \titlerule
+    \vspace{1pc}%
+    \large\MakeUppercase{\chaptertitlename}\ \thechapter
+  }
+  {1pc}
+  {%
+    \titlerule%
+    \vspace{2pt}%
+    \titlerule
+    \vspace{1pc}%
+    \Huge\bfseries\boldmath
+  }
+
+\titlespacing*{\chapter}
+  {0pt}
+  {2pc}
+  {3pc}
+
+% ------------------------------------------------------------------
+%  \section  — large bold sffamily, black number, thin gray rule below
+% ------------------------------------------------------------------
+\titleformat{\section}
+  [block]
+  {\Large\bfseries\boldmath\sffamily}
+  {\thesection}
+  {1em}
+  {}
+  [\vspace{3pt}{\color{black!35}\titlerule[0.6pt]}]
+
+\titlespacing*{\section}
+  {0pt}
+  {2.8ex plus 1ex minus .2ex}
+  {1.5ex plus .3ex}
+
+% ------------------------------------------------------------------
+%  \subsection  — medium bold sffamily, black number, very faint rule
+% ------------------------------------------------------------------
+\titleformat{\subsection}
+  [block]
+  {\large\bfseries\boldmath\sffamily}
+  {\thesubsection}
+  {1em}
+  {}
+  [\vspace{2pt}{\color{black!20}\titlerule[0.4pt]}]
+
+\titlespacing*{\subsection}
+  {0pt}
+  {2.2ex plus .8ex minus .2ex}
+  {1ex plus .2ex}
+
+% ------------------------------------------------------------------
+%  \subsubsection  — normal bold sffamily, black number, no rule
+% ------------------------------------------------------------------
+\titleformat{\subsubsection}
+  [block]
+  {\normalsize\bfseries\sffamily}
+  {\thesubsubsection}
+  {1em}
+  {}
+
+\titlespacing*{\subsubsection}
+  {0pt}
+  {1.8ex plus .5ex minus .2ex}
+  {0.6ex plus .1ex}
+
+% ------------------------------------------------------------------
+%  \paragraph  — run-in, bold sffamily, no number, ends with em-dash
+% ------------------------------------------------------------------
+\titleformat{\paragraph}
+  [runin]
+  {\normalsize\bfseries\sffamily}
+  {}
+  {0em}
+  {}
+  [\enspace---\enspace]
+
+\titlespacing*{\paragraph}
+  {0pt}
+  {1.2ex plus .4ex minus .2ex}
+  {0pt}
+
+
+%% Abstract
+\renewcommand{\abstractnamefont}{\sffamily\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small\noindent\ignorespaces}
+
+
+%% Table of contents
+\setrmarg{3em}
+\setpnumwidth{2em}
+\addtolength{\cftbooknumwidth}{0.5em}
+\addtolength{\cftpartnumwidth}{0.5em}
+\addtolength{\cftchapternumwidth}{0.5em}
+\addtolength{\cftsectionindent}{0.5em}
+\addtolength{\cftsubsectionindent}{0.5em}
+\addtolength{\cftsubsubsectionindent}{0.5em}
+\addtolength{\cftparagraphindent}{0.5em}
+\addtolength{\cftsubparagraphindent}{0.5em}
+\renewcommand{\cftchapteraftersnumb}{\bfseries\boldmath}
+
+
+%% Header and footer
+\pagestyle{ruled}
+\makeheadrule{ruled}{\textwidth}{\normalrulethickness}
+\makefootrule{ruled}{\textwidth}{\normalrulethickness}{\footruleskip}
+\makeevenhead{ruled}{\sffamily\leftmark}{}{}
+\makeoddhead {ruled}{}{}{\sffamily\rightmark}
+\makeevenfoot{ruled}{\sffamily\thepage}{}{}
+\makeoddfoot{ruled}{}{}{\sffamily\thepage}
+
+\makepagestyle{chapter}
+\makefootrule{chapter}{\textwidth}{\normalrulethickness}{\footruleskip}
+\makeevenfoot{chapter}{\sffamily\thepage}{}{}
+\makeoddfoot{chapter}{}{}{\sffamily\thepage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USER-DEFINED MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\namedlabel#1#2{\begingroup
+    #2%
+    \def\@currentlabel{#2}%
+    \phantomsection\label{#1}\endgroup
+}
+
+%% Environments
+\declaretheoremstyle[headfont   = \bfseries\sffamily,
+                     notefont   = \normalfont,
+                     bodyfont   = \itshape,
+                     spaceabove = 6pt,
+                     spacebelow = 6pt]{plain}
+\declaretheoremstyle[headfont   = \bfseries\sffamily,
+                     notefont   = \normalfont,
+                     spaceabove = 6pt,
+                     spacebelow = 6pt]{definition}
+\declaretheorem[style = plain, numberwithin = section]{theorem}
+\declaretheorem[style = plain,      sibling = theorem]{corollary}
+\declaretheorem[style = plain,      sibling = theorem]{lemma}
+\declaretheorem[style = plain,      sibling = theorem]{proposition}
+\declaretheorem[style = plain,      sibling = theorem]{observation}
+\declaretheorem[style = plain,      sibling = theorem]{conjecture}
+\declaretheorem[style = definition, sibling = theorem]{definition}
+\declaretheorem[style = definition, sibling = theorem]{example}
+\declaretheorem[style = definition, sibling = theorem]{notation}
+\declaretheorem[style = remark,     sibling = theorem]{remark}
+\crefname{observation}{Observation}{Observations}
+\Crefname{observation}{Observation}{Observations}
+\crefname{conjecture}{Conjecture}{Conjectures}
+\Crefname{conjecture}{Conjecture}{Conjectures}
+\crefname{notation}{Notation}{Notations}
+\Crefname{notation}{Notation}{Notations}
+
+%% tcolorboxes
+
+% Mathematical Definitions
+\tcbuselibrary{theorems}
+
+% Theorem Box
+\newtcbtheorem[use counter*=theorem]{Theorem}{Theorem}%
+{colback=Gray!10!white, colframe=BrickRed!40!Gray, coltitle=white,
+  fonttitle=\textnormal, boxed title style={colback=BrickRed!40!Gray}}{thm}
+
+% Corollary Box
+\newtcbtheorem[use counter*=theorem]{Corollary}{Corollary}%
+{colback=Gray!10!white, colframe=BrickRed!40!Gray, coltitle=white,
+  fonttitle=\textnormal, boxed title style={colback=BrickRed!40!Gray}}{cor}
+
+% Lemma Box
+\newtcbtheorem[use counter*=theorem]{Lemma}{Lemma}%
+{colback=Gray!10!white, colframe=BurntOrange!50!Gray, coltitle=white,
+  fonttitle=\textnormal, boxed title style={colback=BurntOrange!50!Gray}, breakable}{lem}
+
+% Definition Box
+\newtcbtheorem[use counter*=theorem]{Definition}{Definition}%
+{colback=Gray!10!white, colframe=RoyalBlue!40!Gray, coltitle=white,
+  fonttitle=\textnormal, boxed title style={colback=RoyalBlue!40!Gray},
+  breakable}{def}
+
+% cleveref names for tcolorbox internal counters
+\crefname{tcb@cnt@Theorem}{Theorem}{Theorems}
+\Crefname{tcb@cnt@Theorem}{Theorem}{Theorems}
+\crefname{tcb@cnt@Corollary}{Corollary}{Corollaries}
+\Crefname{tcb@cnt@Corollary}{Corollary}{Corollaries}
+\crefname{tcb@cnt@Lemma}{Lemma}{Lemmas}
+\Crefname{tcb@cnt@Lemma}{Lemma}{Lemmas}
+\crefname{tcb@cnt@Definition}{Definition}{Definitions}
+\Crefname{tcb@cnt@Definition}{Definition}{Definitions}
+
+%% Operators
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\codom}{cod}
+
+
+%% Delimiters
+\DeclarePairedDelimiter{\p}{\lparen}{\rparen}          % Parenthesis
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace}        % Set
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}          % Absolute value
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}         % Norm
+\DeclarePairedDelimiter{\ip}{\langle}{\rangle}         % Inner product, ideal
+\DeclarePairedDelimiter{\sqb}{\lbrack}{\rbrack}        % Square brackets
+\DeclarePairedDelimiter{\ssqb}{\llbracket}{\rrbracket} % Double brackets
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}         % Ceiling
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}      % Floor
+
+%% General Math
+\renewcommand{\emptyset}{\varnothing}
+
+%%% Mathbb Stuff
+\newcommand{\IB}{\mathbb{B}}
+\newcommand{\IP}{\mathbb{P}}
+\newcommand{\IZ}{\mathbb{Z}}
+\newcommand{\IN}{\mathbb{N}}
+\newcommand{\IR}{\mathbb{R}}
+\newcommand{\IS}{\mathbb{S}}
+\newcommand{\II}{\mathbb{I}}
+\newcommand{\IE}{\mathbb{E}}
+\newcommand{\IC}{\mathbb{C}}
+\newcommand{\IOne}{\mathbbold{1}}
+
+%%% Mathfrak Stuff
+\newcommand{\F}[1]{\mathfrak{#1}}
+
+%%% Mathcal Stuff
+\newcommand{\C}[1]{\mathcal{#1}}
+
+%%% Probabilistic Stuff
+\newcommand{\multiset}[1]{\mathrm{MultiSet}(#1)}
+\newcommand{\pot}[1]{\mathrm{Pow}(#1)}
+\newcommand{\mymap}[2]{\mathrm{Map}(#1,#2)}
+\newcommand{\expec}[1]{\mathbb{E}\!\left(#1\right)}
+\newcommand{\sigmagen}[1]{\langle #1 \rangle_{\sigma}}
+\newcommand{\EventSpaceA}{\F{A}}
+\newcommand{\EventSpaceB}{\F{B}}
+\newcommand{\EventSpaceE}{\F{E}}
+\newcommand{\id}{\operatorname{id}}
+
+%%% Random Walk Stuff
+\newcommand{\IPsn}{\mathbb{P}_{\mathtt{SN}}}
+
+%%% Markov Stuff
+\newcommand{\act}{\mathrm{Act}}
+\newcommand{\prefix}{\mathrm{pref}}
+\newcommand{\paths}{\mathrm{Runs}}
+\newcommand{\pathsfin}{\mathrm{Runs}_{\mathrm{fin}}}
+\newcommand{\pathsreach}{\mathrm{Runs}_{\mathrm{reach}}}
+\newcommand{\pathsterm}{\mathrm{Runs}_{\mathtt{SN}}}
+\newcommand{\cylset}{\mathrm{Cyl}}
+\newcommand{\reach}{\mathrm{Reach}}
+\newcommand{\minreach}{\mathrm{MinReach}}
+\newcommand{\pre}{\operatorname{Pre}}
+\newcommand{\post}{\operatorname{Post}}
+\newcommand{\proj}{\operatorname{proj}}
+
+%%Tools
+\newcommand{\tool}[1]{$\mathsf{#1}$}
+\newcommand{\code}[1]{\textsf{#1}}
+\newcommand{\aprove}{\tool{AProVE}}
+\newcommand{\muterm}{\tool{MuTerm}}
+\newcommand{\natt}{\tool{NaTT}}
+\newcommand{\ttttwo}{\textsf{T\kern-0.15em\raisebox{-0.55ex}T\kern-0.15emT\kern-0.15em\raisebox{-0.55ex}2}}
+\newcommand{\tct}{\tool{TcT}}
+\newcommand{\ceta}{\tool{CeTA}}
+
+%% Termrewriting 
+
+%%% General Definitions
+\newcommand{\NF}{\mathtt{NF}}
+\newcommand{\ANF}{\mathtt{ANF}}
+\newcommand{\Var}{\mathcal{V}}
+\newcommand{\Loc}{\mathcal{L}}
+\newcommand{\Trans}{\mathcal{T}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\eval}{\sigma}
+\newcommand{\occ}{\operatorname{Occ}}
+\newcommand{\Substi}{\operatorname{Sub}}
+\newcommand{\emb}{\operatorname{emb}}
+% \newcommand{\SubstitutionSet}[2]{\Substi\left(#1,#2\right)}
+% \newcommand{\SubstitutionGroundSet}[3]{\Substi^{\mathrm{gr}}\!\left(#1,#2,#3\right)}
+\newcommand{\TSet}[2]{\mathcal{T}\!\left(#1,#2\right)}
+\newcommand{\TT}{\mathcal{T}}
+\newcommand{\BB}{\mathcal{B}}
+\newcommand{\TB}{\TT_{\BB}}
+\newcommand{\DEPTerm}{\mathcal{T}^\#\left(\Sigma\right)}
+\newcommand{\LSet}{\mathcal{L}}
+\newcommand{\VSet}{\mathcal{V}}
+\newcommand{\TVSet}{\mathcal{TV}}
+\newcommand{\PVSet}{\mathcal{PV}}
+\newcommand{\DEPSet}{\mathsf{PDTS}}
+\newcommand{\DEPSetWellPos}{\DEPSet_{\mathsf{wp}}}
+\newcommand{\PosEx}{\mathsf{PosEx}}
+\renewcommand{\O}{\mathsf{0}}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\pars}[1]{\xrightarrow{p}_{#1}}
+\newcommand\restrict[2]{#1\raisebox{-.5ex}{$|$}_{#2}}
+\newcommand{\DTuple}[1]{\mathcal{DT}(#1)}
+\newcommand{\DPair}[1]{\mathcal{DP}(#1)}
+\newcommand{\ADPair}[1]{\mathcal{A}(#1)}
+\newcommand{\ADPairMain}[1]{\mathcal{A}_{1}(#1)}
+\newcommand{\ADPairBase}[1]{\mathcal{A}_{2}(#1)}
+\newcommand{\DP}[1]{\mathtt{DP}(#1)}
+\newcommand{\Dist}{\operatorname{Dist}}
+\newcommand{\FDist}{\operatorname{FDist}}
+\newcommand{\Supp}{\operatorname{Supp}}
+\newcommand{\Hist}{\operatorname{Hist}}
+\newcommand{\Term}{\operatorname{Term}}
+\newcommand{\NonTerm}{\operatorname{NonTerm}}
+\newcommand{\toppos}{\operatorname{\mathcal{T}op}}
+\newcommand{\rootterm}{\operatorname{root}}
+\newcommand{\rootsym}{\operatorname{root}}
+\newcommand{\capt}{\operatorname{capt}}
+\newcommand{\capterm}{\operatorname{Cap}}
+\newcommand{\renterm}{\operatorname{Ren}}
+\newcommand{\capabsterm}{\operatorname{Abs}}
+\newcommand{\caphterm}{\operatorname{A}}
+\newcommand{\caphbterm}{\operatorname{B}}
+\newcommand{\caphcterm}{\operatorname{C}}
+\newcommand{\vr}{\operatorname{vr}}
+\newcommand{\nvd}{\normalfont{\text{nvd}}}
+\newcommand{\rules}{\operatorname{Rules}}
+\newcommand{\urules}{\mathcal{U}\mathcal{R}}
+\newcommand{\upairs}{\mathcal{U}\mathcal{P}}
+\newcommand{\upairsabs}{\mathcal{A}\mathcal{U}\mathcal{P}}
+\newcommand{\idh}{\operatorname{idh}}
+\newcommand{\idl}{\operatorname{idl}}
+\newcommand{\irc}{\operatorname{irc}}
+\newcommand{\edh}{\operatorname{edh}}
+\newcommand{\edl}{\operatorname{edl}}
+\newcommand{\Pol}{\operatorname{Pol}}
+\newcommand{\TGround}{\mathcal{T}^{\mathrm{gr}}}
+\newcommand{\DPGround}{\mathcal{T}(\Sigma \uplus \Sigma^{\#})}
+\newcommand{\Com}[1]{\texttt{Com}_{#1}}
+\newcommand{\SigmaDP}{\Sigma \uplus \Sigma^{\#}}
+\newcommand{\DPGroundCom}{\mathcal{T}(\SigmaDP)}
+\newcommand{\cont}{cont}
+\newcommand{\ncont}{ncont}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\ISum}{\mathcal{I}_{\#}}
+\newcommand{\KK}{\mathcal{K}}
+\newcommand{\JJ}{\mathcal{J}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\QQ}{\mathcal{Q}}
+\newcommand{\SSS}{\mathcal{S}}
+\newcommand{\GG}{\mathcal{G}}
+
+%%% Color Stuff
+\newcommand{\pbt}[2]{{}^{\scriptstyle \textcolor{RoyalPurple}{#1}}{#2}}
+\newcommand{\pb}[1]{\textcolor{RoyalPurple}{#1}}
+\newcommand{\redcol}[1]{\textcolor{Brown}{\underline{#1}}}
+
+\newcommand{\modOneCol}[1]{\textcolor{BurntOrange}{#1}}
+\newcommand{\modTwoCol}[1]{\textcolor{Fuchsia}{#1}}
+\newcommand{\modOne}{\modOneCol{\F{1}}}
+\newcommand{\modTwo}{\modTwoCol{\F{2}}}
+
+\newcommand{\modOneRule}{%
+  \mathrel{%
+    \tikz[baseline=-0.5ex]{
+      \node[inner sep=0pt,outer sep=0pt] (arrow) {$\to$};
+      \node[inner sep=0pt,outer sep=0pt] at ([yshift=-0.2ex]arrow.south) {$\scriptscriptstyle \modOne\,$};
+    }%
+  }%
+}
+\newcommand{\modTwoRule}{%
+  \mathrel{%
+    \tikz[baseline=-0.5ex]{
+      \node[inner sep=0pt,outer sep=0pt] (arrow) {$\to$};
+      \node[inner sep=0pt,outer sep=0pt] at ([yshift=-0.2ex]arrow.south) {$\scriptscriptstyle \modTwo\,$};
+    }%
+  }%
+}
+
+% \newcommand{\modOneRule}{\mathrel{\xrightarrow[\raisebox{10pt}[0pt][0pt]{$\scriptscriptstyle \modOne$}]{}}}
+% \newcommand{\modTwoRule}{\mathrel{\xrightarrow[\raisebox{10pt}[0pt][0pt]{$\scriptscriptstyle \modTwo$}]{}}}
+
+%%% PTRS and DP Stuff
+\newcommand{\ttrue}{\mathsf{t}}
+\newcommand{\tfalse}{\mathsf{f}}
+\newcommand{\trtrue}{\mathsf{true}}
+\newcommand{\trfalse}{\mathsf{false}}
+
+\newcommand{\Proc}{\operatorname{Proc}}
+\newcommand{\projOne}{\mathrm{proj}_1}
+\newcommand{\projTwo}{\mathrm{proj}_2}
+\newcommand{\Subd}{\mathrm{Sub}_D}
+\newcommand{\SubdPos}{\mathrm{Sub}_{DPos}}
+\newcommand{\SubdSharp}{\mathrm{Sub}^\#}
+\newcommand{\SubdPosSharp}{\mathrm{Sub}_{DPos}^\#}
+\newcommand{\SubdR}{\mathrm{Sub}_{D, \R}^\#}
+\newcommand{\SubdD}{\mathrm{Sub}_{D, \C{D}}^\#}
+\newcommand{\SubdSharpNotNorm}{\mathrm{Sub}_{D, \lnot \mathit{nf}}^\#}
+\newcommand{\SubdSharpNorm}{\mathrm{Sub}_{D, \mathit{nf}}^\#}
+\newcommand{\Subdnf}{\mathrm{Sub}_D^{\neg \mathit{nf}}}
+\newcommand{\Subcomnf}{\mathrm{Sub}_{\Com{}}^{\neg \mathit{nf}}}
+\newcommand{\Submultnf}{\mathrm{Sub}_{\text{set}}^{\neg \mathit{nf}}}
+\newcommand{\SubdnfAll}{\mathrm{SubAll}_D^{\neg \mathit{nf}}}
+\newcommand{\SubcomnfAll}{\mathrm{SubAll}_{\Com{}}^{\neg \mathit{nf}}}
+\newcommand{\SubmultnfAll}{\mathrm{SubAll}_{\text{mul}}}
+\newcommand{\SubmultD}{\mathrm{Sub}_{D, \text{set}}}
+\newcommand{\Subterm}[1]{\mathrm{Subterm}(#1)}
+\newcommand{\Subtermdep}[1]{\mathrm{Subterm}_{dep}(#1)}
+\newcommand{\SubmultPoss}{\mathrm{Sub}_{\text{set}}^{\text{Poss}}}
+\newcommand{\SubDPoss}{\mathrm{Sub}_{\text{term}}^{\text{Poss}}}
+\newcommand{\SubmultMain}{\mathrm{Sub}_{\text{set}}^{\text{Main}}}
+\newcommand{\SubDMain}{\mathrm{Sub}_{\text{term}}^{\text{Main}}}
+\newcommand{\SubmultNorm}{\mathrm{Sub}_{\text{set}}^{\text{Norm}}}
+\newcommand{\SubDNorm}{\mathrm{Sub}_{\text{term}}^{\text{Norm}}}
+\newcommand{\Junk}{\mathrm{Junk}}
+\newcommand{\inSet}[1]{\langle \hspace{-3px} \{#1\} \hspace{-3px} \rangle}
+
+\newcommand{\Extension}{\operatorname{Ext}}
+\newcommand{\FExtension}{\operatorname{FamExt}}
+
+%%%% RPP Proof Stuff
+\newcommand{\val}{\mathit{\C{V}al}}
+\newcommand{\tval}{\mathit{\mathcal{V}al}_{\F{T}}}
+\newcommand{\adtval}{\overline{\mathit{\mathcal{V}al}}_{\F{T}}}
+\newcommand{\adtvaltwo}{\widehat{\mathit{\mathcal{V}al}}_{\F{T}}}
+
+%%%% ADP SAST Stuff
+\newcommand{\PosDPoss}{\pos_{\mathcal{D} \land \lnot \mathtt{NF}_{\R}}}
+\newcommand{\flateq}{\stackrel{\flat}{=}}
+\newcommand{\PathComp}{c}
+
+\newcommand{\nonprob}{\normalfont{\text{np}}}
+\newcommand{\nonprobDP}{\normalfont{\text{dp}}}
+\newcommand{\nonprobDT}{\normalfont{\text{dt}}}
+
+%%% generator-rule definitions
+\newcommand{\cv}{\operatorname{cv}}
+\newcommand{\bv}{\operatorname{bv}}
+\newcommand{\dv}{\operatorname{dv}}
+
+%%% Decidability Stuff
+\newcommand{\GNT}{\operatorname{GNT}}
+\newcommand{\RNT}{\operatorname{RNT}}
+\newcommand{\RLNT}{\operatorname{RLNT}}
+
+%%% Modularity Stuff
+\newcommand{\absterm}{\operatorname{Abs}}
+\newcommand{\abshterm}{\operatorname{A}}
+\newcommand{\abshbterm}{\operatorname{B}}
+\newcommand{\abshcterm}{\operatorname{C}}
+
+%%% Commonly used terms
+\newcommand{\tta}{\mathsf{a}}
+\newcommand{\ttb}{\mathsf{b}}
+\newcommand{\ttc}{\mathsf{c}}
+\newcommand{\ttd}{\mathsf{d}}
+\newcommand{\tte}{\mathsf{e}}
+\newcommand{\ttf}{\mathsf{f}}
+\newcommand{\ttg}{\mathsf{g}}
+\newcommand{\tth}{\mathsf{h}}
+\newcommand{\tti}{\mathsf{i}}
+\newcommand{\ttj}{\mathsf{j}}
+\newcommand{\ttk}{\mathsf{k}}
+\newcommand{\ttl}{\mathsf{l}}
+\newcommand{\ttm}{\mathsf{m}}
+\newcommand{\ttn}{\mathsf{n}}
+\newcommand{\tto}{\mathsf{o}}
+\newcommand{\ttp}{\mathsf{p}}
+\newcommand{\ttq}{\mathsf{q}}
+\newcommand{\ttr}{\mathsf{r}}
+\newcommand{\tts}{\mathsf{s}}
+\newcommand{\ttt}{\mathsf{t}}
+\newcommand{\ttu}{\mathsf{u}}
+\newcommand{\ttv}{\mathsf{v}}
+\newcommand{\ttw}{\mathsf{w}}
+\newcommand{\ttx}{\mathsf{x}}
+\newcommand{\tty}{\mathsf{y}}
+\newcommand{\ttz}{\mathsf{z}}
+
+\newcommand{\ttA}{\mathsf{a}^{\sharp}}
+\newcommand{\ttB}{\mathsf{b}^{\sharp}}
+\newcommand{\ttC}{\mathsf{c}^{\sharp}}
+\newcommand{\ttD}{\mathsf{d}^{\sharp}}
+\newcommand{\ttE}{\mathsf{e}^{\sharp}}
+\newcommand{\ttF}{\mathsf{f}^{\sharp}}
+\newcommand{\ttG}{\mathsf{g}^{\sharp}}
+\newcommand{\ttH}{\mathsf{h}^{\sharp}}
+\newcommand{\ttI}{\mathsf{i}^{\sharp}}
+\newcommand{\ttJ}{\mathsf{j}^{\sharp}}
+\newcommand{\ttK}{\mathsf{k}^{\sharp}}
+\newcommand{\ttL}{\mathsf{l}^{\sharp}}
+\newcommand{\ttM}{\mathsf{m}^{\sharp}}
+\newcommand{\ttN}{\mathsf{n}^{\sharp}}
+\newcommand{\ttO}{\mathsf{o}^{\sharp}}
+\newcommand{\ttP}{\mathsf{p}^{\sharp}}
+\newcommand{\ttQ}{\mathsf{q}^{\sharp}}
+\newcommand{\ttR}{\mathsf{r}^{\sharp}}
+\newcommand{\ttS}{\mathsf{s}^{\sharp}}
+\newcommand{\ttT}{\mathsf{t}^{\sharp}}
+\newcommand{\ttU}{\mathsf{u}^{\sharp}}
+\newcommand{\ttV}{\mathsf{v}^{\sharp}}
+\newcommand{\ttW}{\mathsf{w}^{\sharp}}
+\newcommand{\ttX}{\mathsf{x}^{\sharp}}
+\newcommand{\ttY}{\mathsf{y}^{\sharp}}
+\newcommand{\ttZ}{\mathsf{z}^{\sharp}}
+
+\newcommand{\tcm}{\mathsf{cm}}
+\newcommand{\trun}{\mathsf{run}}
+\newcommand{\tend}{\mathsf{end}}
+\newcommand{\tstart}{\mathsf{start}}
+\newcommand{\tStart}{\mathsf{Start}}
+\newcommand{\tfin}{\mathsf{finish}}
+\newcommand{\tfloor}{\mathsf{floor}}
+\newcommand{\tcross}{\mathsf{cross}}
+\newcommand{\tplus}{\mathsf{plus}}
+\newcommand{\tdice}{\mathsf{dice}}
+\newcommand{\tmin}{\mathsf{min}}
+\newcommand{\tbot}{\mathsf{bot}}
+\newcommand{\tminus}{\mathsf{minus}}
+\newcommand{\tdiv}{\mathsf{div}}
+\newcommand{\tdivl}{\mathsf{divL}}
+\newcommand{\tcom}{\mathsf{com}}
+\newcommand{\tset}{\mathsf{mset}}
+\newcommand{\tpdiv}{\mathsf{pdiv}}
+\newcommand{\trd}{\mathsf{rd}}
+\newcommand{\trw}{\mathsf{rw}}
+\newcommand{\tcons}{\mathsf{cons}}
+\newcommand{\tenc}{\mathsf{enc}}
+\newcommand{\targenc}{\mathsf{argenc}}
+\newcommand{\tnil}{\mathsf{nil}}
+\newcommand{\tleaf}{\mathsf{leaf}}
+\newcommand{\tnode}{\mathsf{node}}
+\newcommand{\tcontains}{\mathsf{contains}}
+\newcommand{\tlen}{\mathsf{len}}
+\newcommand{\tpurge}{\mathsf{purge}}
+\newcommand{\teq}{\mathsf{eq}}
+\newcommand{\tremove}{\mathsf{remove}}
+\newcommand{\tif}{\mathsf{if}}
+% \newcommand{\ttrue}{\mathsf{true}}
+% \newcommand{\tfalse}{\mathsf{false}}
+\newcommand{\tshuffle}{\mathsf{shuffle}}
+\newcommand{\trotate}{\mathsf{rotate}}
+\newcommand{\tapp}{\mathsf{app}}
+\newcommand{\tqs}{\mathsf{qs}}
+\newcommand{\tqshelp}{\mathsf{qsHelp}}
+\newcommand{\tifhigh}{\mathsf{ifHigh}}
+\newcommand{\thigh}{\mathsf{high}}
+\newcommand{\tiflow}{\mathsf{ifLow}}
+\newcommand{\tlow}{\mathsf{low}}
+\newcommand{\tleq}{\mathsf{leq}}
+\newcommand{\tstop}{\mathsf{stop}}
+\newcommand{\tbogo}{\mathsf{bogo}}
+\newcommand{\tbogohelp}{\mathsf{bogoHelp}}
+\newcommand{\tifsorted}{\mathsf{ifSorted}}
+\newcommand{\tifleq}{\mathsf{ifLeq}}
+\newcommand{\tsortr}{\mathsf{sortR}}
+\renewcommand{\thead}{\mathsf{head}}
+\newcommand{\tcoin}{\mathsf{coin}}
+\newcommand{\ttail}{\mathsf{tail}}
+
+\newcommand{\xs}{\mathit{xs}}
+\newcommand{\ys}{\mathit{ys}}
+\newcommand{\zs}{\mathit{zs}}
+
+\newcommand{\tic}{\mathsf{inc}}
+
+\newcommand{\tloopOne}{\mathsf{loop1}}
+\newcommand{\tloopTwo}{\mathsf{loop2}}
+\newcommand{\tdouble}{\mathsf{double}}
+\newcommand{\ttriple}{\mathsf{triple}}
+
+\newcommand{\tLoopOne}{\mathsf{L1}}
+\newcommand{\tLoopTwo}{\mathsf{L2}}
+\newcommand{\tDouble}{\mathsf{D}}
+\newcommand{\tTriple}{\mathsf{T}}
+
+\newcommand{\tgeo}{\mathsf{geo}}
+\newcommand{\tGeo}{\mathsf{Geo}}
+
+\newcommand{\ttop}{\mathsf{top}}
+\newcommand{\treduce}{\mathsf{reduce}}
+\newcommand{\tredex}{\mathsf{redex}}
+\newcommand{\tcheck}{\mathsf{check}}
+\newcommand{\tin}{\mathsf{in}}
+\newcommand{\tgoup}{\mathsf{go\rule{0.5em}{0.4pt}up}}
+\newcommand{\tresult}{\mathsf{result}}
+
+\newcommand{\bat}{\mathbf{at}}
+\newcommand{\baf}{\mathbf{af}}
+\newcommand{\bnt}{\mathbf{nt}}
+\newcommand{\bnf}{\mathbf{nf}}
+
+\newcommand{\ruleArr}[3]{
+  \mathrel{
+    \xrightarrow{{}_{\scriptstyle #1}}
+    \!\!{}^{#2}_{#3}
+  }
+}
+\newcommand{\hookrule}{
+  \mathrel{
+    \xhookrightarrow{}
+  }
+}
+\newcommand{\liftArr}[3]{
+  \mathrel{
+    \xliftto{#1}
+    \!\!{}^{#2}_{#3}
+  }
+}
+\newcommand{\tored}[3]{
+  \mathrel{
+    \xhookrightarrow{{}_{\scriptstyle #1}}
+    \!\!{}^{#2}_{#3}
+  }
+}
+\newcommand{\itored}[2]{
+  \mathrel{
+    \xhookrightarrow{\smash{{\raisebox{-.5ex}{$\scriptscriptstyle \mathbf{i}\:$}}}}\!\!{}^{#1}_{#2}
+  }
+}
+\newcommand{\adparrow}[2]{
+  \mathrel{
+    \smash{\xhookrightarrow{\smash{{\raisebox{-.5ex}{$\scriptscriptstyle #2 \:$}}}}}
+  }
+}
+\newcommand{\leftleadsto}{\mathrel{\reflectbox{$\leadsto$}}}
+
+\newcommand{\fun}[1]{\mathrm{#1}}
+% positions of terms
+\newcommand{\pos}{\fun{pos}}
+% positions of terms
+\newcommand{\posRedex}[1]{\fun{pos}^{\fun{red}}_{#1}}
+% innermost positions of an term
+\newcommand{\posi}{\fun{pos}^{\mathtt{i}}}
+% outermost positions of an term
+\newcommand{\poso}{\fun{pos}^{\mathtt{o}}}
+% positions of tuple symbols
+\newcommand{\posT}{\fun{pos}_{\SignatureA}}
+% innermost positions of tuple symbols
+\newcommand{\posTi}{\fun{pos}_{\SignatureA}^{\mathtt{i}}}
+% outermost positions of tuple symbols
+\newcommand{\posTo}{\fun{pos}_{\SignatureA}^{\mathtt{o}}}
+% positions of defined symbols
+\newcommand{\posD}{\fun{pos}_{\SignatureD}}
+% positions of constructors
+\newcommand{\posC}{\fun{pos}_{\SignatureC}}
+% positions of defined and annotated symbols
+\newcommand{\posDT}{\fun{pos}_{\SignatureD \cup \SignatureA}}
+% annotated positions of an annotated term
+\newcommand{\posA}[1]{\fun{pos}^{\mathtt{A}}_{#1}}
+% innermost annotated positions of an annotated term
+\newcommand{\posAi}[1]{\fun{pos}^{\mathtt{A,i}}_{#1}}
+% outermost annotated positions of an annotated term
+\newcommand{\posAo}[1]{\fun{pos}^{\mathtt{A,o}}_{#1}}
+% subterms of terms
+\newcommand{\sub}{\fun{sub}}
+% innermost subterms of terms
+\newcommand{\subi}{\fun{sub}^\mathtt{i}}
+% outermost subterms of terms
+\newcommand{\subo}{\fun{sub}^\mathtt{o}}
+% subterms with tuple symbols
+\newcommand{\subT}{\fun{sub}_{\SignatureA}}
+% innermost subterms with tuple symbols
+\newcommand{\subTi}{\fun{sub}_{\SignatureA}^\mathtt{i}}
+% outermost subterms with tuple symbols
+\newcommand{\subTo}{\fun{sub}_{\SignatureA}^\mathtt{o}}
+% subterms with defined symbols
+\newcommand{\subD}{\fun{sub}_{\SignatureD}}
+% subterms with constructors
+\newcommand{\subC}{\fun{sub}_{\SignatureC}}
+% annotated subterms of an annotated term
+\newcommand{\subA}{\fun{ann}}
+% innermost annotated subterms of an annotated term
+\newcommand{\subAi}[1]{\fun{sub}^{\mathtt{A,i}}_{#1}}
+% innermost annotated subterms of an annotated term
+\newcommand{\subAo}[1]{\fun{sub}^{\mathtt{A,o}}_{#1}}
+% subterms without annotation of an annotated term
+\newcommand{\subAt}[1]{\fun{sub}^{\mathtt{A,t}}_{#1}}
+% innermost subterms without annotation of an annotated term
+\newcommand{\subAti}[1]{\fun{sub}^{\mathtt{A,t,i}}_{#1}}
+% innermost subterms without annotation of an annotated term
+\newcommand{\subAto}[1]{\fun{sub}^{\mathtt{A,t,o}}_{#1}}
+
+% constructor for tuple terms
+\newcommand{\anno}{\sharp} 
+% constructor for tuple terms without tuple symbols
+\newcommand{\annoE}{\anno_{\emptyset}}
+% constructor for tuple terms with only the topmost function symbol being a tuple symbol
+\newcommand{\annoEps}{\anno_{\{\varepsilon\}}}
+% constructor for tuple terms with all defined symbols replaced by tuple symbols
+\newcommand{\annoD}{\anno_{\SignatureD}}
+% constructor for normal terms
+\newcommand{\disanno}{\fun{disanno}}
+% constructor for tuple terms with only the topmost function symbol being a tuple symbol
+\newcommand{\disannoPos}[1]{\flat^{\uparrow}_{#1}}
+% tuple term to traditional dependency tuple
+\newcommand{\dt}{\fun{dt}}
+% partitioning of condition
+\newcommand{\phipart}{\fun{part}}
+% the rule variant that includes the return value and the cost
+\newcommand{\varall}{\#}
+% the rule variant that includes the return value but no cost
+\newcommand{\varret}{\square}
+% return value projection
+\newcommand{\ret}{\fun{ret}}
+% function to generate locations
+\newcommand{\loc}{\fun{loc}}
+% function to generate left locations
+\newcommand{\locL}{\fun{loc}_\mathtt{L}}
+% function to generate right locations
+\newcommand{\locR}{\fun{loc}_\mathtt{R}}
+% function to extract a term at a location
+\newcommand{\extr}{\fun{extr}}
+% filter argument and return positions
+\newcommand{\filter}{\fun{filter}}
+% delete argument and return positions, effectively reducing the arity of the function symbols
+\newcommand{\del}{\fun{del}}
+% replace argument and return positions by fresh variables
+\newcommand{\chop}{\fun{chop}}
+% defined symbols and constructors
+\newcommand{\SignatureDC}{\mathcal{F}}
+% tuple symbols, defined symbols, and constructors
+\newcommand{\SignatureADC}{\Sigma^\#}
+% com-symbols
+\newcommand{\SignatureCom}{\mathcal{C}_\com}
+% constructors
+\newcommand{\SignatureC}{\mathcal{C}}
+% defined symbols
+\newcommand{\SignatureD}{\mathcal{D}}
+% tuple symbols
+\newcommand{\SignatureA}{\mathcal{D}^\#}
+% tuple and defined symbols
+\newcommand{\SignatureAD}{\mathcal{D}^\# \uplus \mathcal{D}}
+% user function symbols
+\newcommand{\SignatureUDC}{\mathcal{F}_\mathtt{U}}
+% user constructors
+\newcommand{\SignatureUC}{\mathcal{C}_\mathtt{U}}
+% user defined symbols
+\newcommand{\SignatureUD}{\mathcal{D}_\mathtt{U}}
+% user tuple symbols
+\newcommand{\SignatureUT}{\mathcal{D}_\mathtt{U}^\#}
+% user tuple symbols, user defined symbols, and user constructors
+\newcommand{\SignatureUTDC}{\mathcal{F}_\mathtt{U}^\#}
+% predefined function symbols
+\newcommand{\SignaturePDC}{\mathcal{F}_\mathtt{P}}
+% predefined constructors
+\newcommand{\SignaturePC}{\mathcal{C}_\mathtt{P}}
+% predefined defined symbols
+\newcommand{\SignaturePD}{\mathcal{D}_\mathtt{P}}
+
+%%% chain-tree definitions
+\newcommand{\ctroot}{\F{r}}
+\newcommand{\aV}{\Gamma}
+\newcommand{\nV}{\overline{\Gamma}}
+\newcommand{\ctleaf}{\operatorname{Leaf}}
+\newcommand{\ctleafF}{\operatorname{Leaf}_F}
+\newcommand{\cthole}{\operatorname{Hole}}
+\newcommand{\ctleafEOne}{\operatorname{Leaf}_{E_1}}
+\newcommand{\ctleafEPless}{\operatorname{Leaf}_{\PP_<}}
+\newcommand{\ctdepth}{\operatorname{d}}
+\newcommand{\ctheight}{\operatorname{h}}
+\newcommand{\ctdepthSet}{\operatorname{D}}
+\newcommand{\ctlevel}{l}
+\newcommand{\ctlevelwithborder}{L}
+\newcommand{\ctlevelEPless}{\C{L}_{\PP_<}}
+\newcommand{\ctc}{\mathbf{\C{C}hain\C{T}ree}}
+
+%% Notions of Termination
+\newcommand{\SN}[1][]{%
+\ifx\relax#1\relax
+  \mathtt{SN}%
+\else
+  \mathtt{SN}(#1)%
+\fi
+}
+\newcommand{\iSN}[1][]{%
+\ifx\relax#1\relax
+  \mathtt{iSN}%
+\else
+  \mathtt{iSN}(#1)%
+\fi
+}
+\newcommand{\wSN}[1][]{%
+\ifx\relax#1\relax
+  \mathtt{WN}%
+\else
+  \mathtt{WN}(#1)%
+\fi
+}
+\newcommand{\SNf}{\SN[\fto_{\R}]}
+\newcommand{\SNi}{\SN[\ito_{\R}]}
+\newcommand{\SNo}{\SN[\oto_{\R}]}
+\newcommand{\SNli}{\SN[\lito_{\R}]}
+\newcommand{\SNs}{\SN[\sto_{\R}]}
+\newcommand{\wSNf}{\wSN[\fto_{\R}]}
+\newcommand{\wSNi}{\wSN[\ito_{\R}]}
+\newcommand{\wSNo}{\wSN[\oto_{\R}]}
+\newcommand{\wSNs}{\wSN[\sto_{\R}]}
+\newcommand{\wSNli}{\wSN[\lito_{\R}]}
+\newcommand{\AST}[1][]{%
+  \ifx\relax#1\relax
+    \mathtt{AST}%
+  \else
+    \mathtt{AST}(#1)%
+  \fi
+}
+\newcommand{\wAST}[1][]{%
+  \ifx\relax#1\relax
+    \mathtt{wAST}%
+  \else
+    \mathtt{wAST}(#1)%
+  \fi
+}
+\newcommand{\ASTf}{\AST[\fto_{\PP}]}
+\newcommand{\ASTi}{\AST[\ito_{\PP}]}
+\newcommand{\ASTo}{\AST[\oto_{\PP}]}
+\newcommand{\ASTli}{\AST[\lito_{\PP}]}
+\newcommand{\ASTs}{\AST[\sto_{\PP}]}
+\newcommand{\wASTf}{\wAST[\fto_{\PP}]}
+\newcommand{\PAST}[1][]{%
+  \ifx\relax#1\relax
+    \mathtt{PAST}%
+  \else
+    \mathtt{PAST}(#1)%
+  \fi
+}
+\newcommand{\wPAST}[1][]{%
+  \ifx\relax#1\relax
+    \mathtt{wPAST}%
+  \else
+    \mathtt{wPAST}(#1)%
+  \fi
+}
+\newcommand{\PASTf}{\PAST[\to_{\PP}]}
+\newcommand{\PASTi}{\PAST[\ito_{\PP}]}
+\newcommand{\PASTo}{\PAST[\oto_{\PP}]}
+\newcommand{\PASTli}{\PAST[\lito_{\PP}]}
+\newcommand{\PASTs}{\PAST[\sto_{\PP}]}
+\newcommand{\wPASTf}{\wPAST[\fto_{\PP}]}
+\newcommand{\SAST}[1][]{%
+  \ifx\relax#1\relax
+    \mathtt{SAST}%
+  \else
+    \mathtt{SAST}(#1)%
+  \fi
+}
+\newcommand{\SASTf}{\SAST[\fto_{\PP}]}
+\newcommand{\SASTi}{\SAST[\ito_{\PP}]}
+\newcommand{\SASTo}{\SAST[\oto_{\PP}]}
+\newcommand{\SASTli}{\SAST[\lito_{\PP}]}
+\newcommand{\SASTs}{\SAST[\sto_{\PP}]}
+\newcommand{\PSN}[1][]{%
+  \ifx\relax#1\relax
+    \mathtt{PSN}%
+  \else
+    \mathtt{PSN}(#1)%
+  \fi
+}
+\newcommand{\wPSN}[1][]{%
+  \ifx\relax#1\relax
+    \mathtt{wPSN}%
+  \else
+    \mathtt{wPSN}(#1)%
+  \fi
+}
+\newcommand{\PSNf}{\PSN[\fto_{\PP}]}
+\newcommand{\PSNi}{\PSN[\ito_{\PP}]}
+\newcommand{\PSNo}{\PSN[\oto_{\PP}]}
+\newcommand{\PSNli}{\PSN[\lito_{\PP}]}
+\newcommand{\PSNs}{\PSN[\sto_{\PP}]}
+\newcommand{\wPSNf}{\wPSN[\fto_{\PP}]}
+
+\newcommand{\maybePAST}{\operatorname{\texttt{(P)AST}}}
+\newcommand{\PASTAST}{\normalfont{\operatorname{\texttt{(P)AST}}}}
+\newcommand{\PASTASTColor}{\normalfont{\operatorname{\texttt{\textcolor{purple}{(P)}AST}}}}
+
+%%% Complexity
+\newcommand{\dheight}{\operatorname{dh}}
+\newcommand{\runtime}{\operatorname{rc}}
+\newcommand{\eruntime}{\operatorname{erc}}
+\newcommand{\eiruntime}{\operatorname{eirc}}
+\newcommand{\dertime}{\operatorname{dc}}
+\newcommand{\edertime}{\operatorname{edc}}
+
+\newcommand{\PolC}{\mathbf{Pol}}
+\newcommand{\pl}{\operatorname{pol}}
+\newcommand{\Exp}{\mathbf{Exp}}
+\newcommand{\DExp}{\mathbf{2\text{-}Exp}}
+\newcommand{\Fin}{\mathbf{Fin}}
+\newcommand{\omegaC}{\mathbf{Inf}}
+
+%% Notions of Confluence
+\newcommand{\CR}[1][]{%
+\ifx\relax#1\relax
+  \mathtt{CR}%
+\else
+  \mathtt{CR}(#1)%
+\fi
+}
+\newcommand{\WCR}[1][]{%
+\ifx\relax#1\relax
+  \mathtt{WCR}%
+\else
+  \mathtt{WCR}(#1)%
+\fi
+}
+
+%%% Rewrite Relations
+\makeatletter
+\NewDocumentCommand{\dparrow}{+O{} +O{0.5cm}}{%
+\begin{tikzpicture}[baseline=-0.5ex] {
+\node[inner sep=0](@1) at (0,0) {};
+\node[inner sep=0](@2) at (#2,0) {};
+\draw [arrows={-Triangle[open]},shorten >= 1pt,shorten <= 1pt](@1)--(@2) node[pos=.5,above,inner sep=1pt] {\ensuremath{#1}};}
+\end{tikzpicture}\xspace
+}
+
+\NewDocumentCommand{\myto}{+O{} +O{0.5cm}}{%
+\begin{tikzpicture}[baseline=-0.5ex] {
+\node[inner sep=0](@1) at (0,0) {};
+\node[inner sep=0](@2) at (#2,0) {};
+\draw [arrows={-to}](@1)--(@2) node[pos=.5,above,inner sep=1pt] {\ensuremath{#1}};}
+\end{tikzpicture}\xspace
+}
+
+\NewDocumentCommand{\paraarrow}{+O{} +O{0.4cm}}{%
+\begin{tikzpicture}[baseline=-0.5ex] {
+\node[inner sep=0](@1) at (0,0) {};
+\node[inner sep=0](@2) at (#2,0) {};
+\node[inner sep=0](@3) at (0.07,0) {};
+\draw [arrows={-to}](@1)--(@2) node[pos=.5,above,inner sep=1pt] {\ensuremath{#1}};
+\draw [arrows={-to}](@1)--(@3);}
+\end{tikzpicture}\xspace
+}
+
+\NewDocumentCommand{\paradparrow}{+O{} +O{0.4cm}}{%
+\begin{tikzpicture}[baseline=-0.5ex] {
+\node[inner sep=0](@1) at (0,0) {};
+\node[inner sep=0](@2) at (#2,0) {};
+\node[inner sep=0](@3) at (0.07,0) {};
+\draw [arrows={-Triangle[open]}](@1)--(@2) node[pos=.5,above,inner sep=1pt] {\ensuremath{#1}};
+\draw [arrows={-to}](@1)--(@3);}
+\end{tikzpicture}\xspace
+}
+
+%Disproving Stuff
+\newcommand{\subtermoc}{%
+  \mathrel{%
+    \tikz[baseline=-0.5ex]{
+      \node[inner sep=0pt,outer sep=0pt] (A) {$\vartriangleleft$};
+      \draw[line width=0.4pt] ([xshift=0.1em,yshift=-0.01em]A.west) -- ([xshift=-0.1em]A.east);
+    }%
+  }%
+}
+
+\newcommand{\patternoc}{%
+  \mathrel{%
+    \tikz[baseline=-0.5ex]{
+      \node[inner sep=0pt,outer sep=0pt] at (0, 0) (A1) {$\vartriangleleft$};
+      \node[inner sep=0pt,outer sep=0pt] at (0.03, -0.0075) (A2) {\scriptsize$\circ$};
+    }%
+  }%
+}
+
+\newcommand{\subtermocAlt}{%
+\mathrel{%
+    \tikz[baseline=-0.5ex]{
+      % filled left triangle
+      \node[inner sep=0pt, outer sep=0pt] (A) {$\blacktriangleleft$};
+      % white line across the middle
+      \draw[white, line width=1.4pt]
+        ($(A.north west)!0.515!(A.south west)$) --
+        ($(A.north east)!0.515!(A.south east)$);
+      \node[inner sep=0pt, outer sep=0pt] (A) {$\vartriangleleft$};
+    }%
+  }%
+}
+
+\newcommand{\notsubtermocAlt}{%
+\mathrel{%
+    \tikz[baseline=-0.5ex]{
+      % filled left triangle
+      \node[inner sep=0pt, outer sep=0pt] (A) {$\blacktriangleleft$};
+      % white line across the middle
+      \draw[white, line width=1.4pt]
+        ($(A.north west)!0.515!(A.south west)$) --
+        ($(A.north east)!0.515!(A.south east)$);
+      \node[inner sep=0pt, outer sep=0pt] (A) {$\vartriangleleft$};
+      % "not"-line
+      \draw[black, line width=0.5pt]
+        ($(A.south west) + (0.04,-0.02)$) --
+        ($(A.north east) + (0,0.05)$);
+    }%
+  }%
+}
+
+\newcommand{\patternocAlt}{%
+\mathrel{%
+    \tikz[baseline=-0.5ex]{
+      % filled left triangle
+      \node[inner sep=0pt, outer sep=0pt] (A) {$\blacktriangleleft$};
+      % white line across the middle
+      \draw[white, line width=1.4pt]
+        ($(A.north west)!0.515!(A.south west)$) --
+        ($(A.north east)!0.515!(A.south east)$);
+      \node[inner sep=0pt, outer sep=0pt] (A) {$\vartriangleleft$};
+
+      \draw[black, line width=0.5pt]
+        ($(A.north east) + (0.01,0)$) --
+        ($(A.south east) + (0.01,0)$);
+      \draw[black, line width=0.5pt]
+        ($(A.north east) + (0.05,0)$) --
+        ($(A.south east) + (0.05,0)$);
+      \draw[black, line width=0.5pt]
+        ($(A.north east) + (0.09,0)$) --
+        ($(A.south east) + (0.09,0)$);
+    }%
+  }%
+}
+
+\newcommand{\geqMaybe}{%
+  \mathrel{%
+    \begin{tikzpicture}[scale=0.2, baseline=-0.9ex]
+      \draw[line width=0.5pt] (0,0.5) -- (1,0) -- (0,-0.5);
+      \draw[purple, line width=0.5pt] (0,-0.9) -- (1.1,-0.9);
+
+      \draw[purple, -] (-0.1,-1.2) to[bend left] (-0.1,-0.6);
+      \draw[purple, -] (1.2,-1.2) to[bend right] (1.2,-0.6);
+    \end{tikzpicture}
+  }
+}
+
+\newcommand{\NOO}{\operatorname{NO}}
+\newcommand{\ParaNOO}{\operatorname{OO}}
+\newcommand{\maxNOO}{\operatorname{maxNO}}
+\newcommand{\maxParaNOO}{\operatorname{maxOO}}
+\newcommand{\NOM}{\operatorname{NPO}}
+\newcommand{\ParaNOM}{\operatorname{OPO}}
+\newcommand{\maxNOM}{\operatorname{maxNPO}}
+\newcommand{\maxParaNOM}{\operatorname{maxOPO}}
+\newcommand{\clt}{clt}
+%overset spacing
+\newcommand{\oset}[2]{%
+  {\mathop{#2}\limits^{\vbox to 1\ex@{\kern-\tw@\ex@
+   \hbox{\scriptsize #1}\vss}}}}
+
+\newcommand{\osetthree}[2]{%
+  {\mathop{#2}\limits^{\vbox to 3\ex@{\kern-\tw@\ex@
+   \hbox{\scriptsize #1}\vss}}}}
+
+\newcommand{\osetfive}[2]{%
+  {\mathop{#2}\limits^{\vbox to 5\ex@{\kern-\tw@\ex@
+   \hbox{\scriptsize #1}\vss}}}}
+
+\newcommand{\osetminus}[2]{%
+  {\mathop{#2}\limits^{\vbox to -2\ex@{\kern-\tw@\ex@
+   \hbox{\scriptsize #1}\vss}}}}
+\makeatother
+
+%%%%% Basics
+\newcommand{\longto}{\myto[][0.8cm]}
+\newcommand{\fto}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \mathbf{f}\:$}}{\smash{\rightarrow}}}}}
+\newcommand{\leftfto}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \:\mathbf{f}$}}{\smash{\leftarrow}}}}}
+\newcommand{\ito}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \mathbf{i}\:$}}{\smash{\rightarrow}}}}}
+\newcommand{\lito}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \mathbf{li}\:$}}{\smash{\rightarrow}}}}}
+\newcommand{\epsto}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \varepsilon\:$}}{\smash{\rightarrow}}}}}
+\newcommand{\sto}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle s\:$}}{\smash{\rightarrow}}}}}
+\newcommand{\sOneto}{\mathrel{\smash{\stackrel{\raisebox{2.5pt}{$\scriptscriptstyle s_{\scriptscriptstyle 1}\:$}}{\smash{\longrightarrow}}}}}
+\newcommand{\sTwoto}{\mathrel{\smash{\stackrel{\raisebox{2.5pt}{$\scriptscriptstyle s_{\scriptscriptstyle 2}\:$}}{\smash{\longrightarrow}}}}}
+\newcommand{\iepsto}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \mathbf{i} \, \varepsilon\:$}}{\smash{\longrightarrow}}}}}
+\newcommand{\tonotroot}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \lnot \varepsilon\:$}}{\smash{\longrightarrow}}}}}
+\newcommand{\itonotroot}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \mathbf{i} \lnot \varepsilon\:$}}{\smash{\longrightarrow}}}}}
+\newcommand{\stonotroot}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle s \lnot \varepsilon\:$}}{\smash{\longrightarrow}}}}}
+\newcommand{\oto}{\mathrel{\smash{\stackrel{\raisebox{2pt}{\tiny $\mathsf{o}\:$}}{\smash{\rightarrow}}}}}
+\newcommand{\qto}{\mathrel{\smash{\stackrel{\raisebox{2pt}{\tiny $\QQ\:$}}{\smash{\rightarrow}}}}}
+\newcommand{\qPrimeto}{\mathrel{\smash{\stackrel{\raisebox{2pt}{\tiny $\dashed{\QQ}\:$}}{\smash{\rightarrow}}}}}
+\newcommand{\itops}{\mathrel{\smash{\stackrel{\raisebox{2pt}{\tiny $\mathsf{i}\:$}}{\smash{\rightarrow}}}}}
+
+\newcommand{\idparrow}{\mathrel{\smash{\stackrel{\raisebox{2pt}{\tiny $\mathsf{i}\:$}}{\smash{\dparrow}}}}}
+\newcommand{\odparrow}{\mathrel{\smash{\stackrel{\raisebox{2pt}{\tiny $\mathsf{o}\:$}}{\smash{\dparrow}}}}}
+\newcommand{\qdparrow}{\mathrel{\smash{\stackrel{\raisebox{2pt}{\tiny $\QQ\:$}}{\smash{\dparrow}}}}}
+
+\newcommand{\topara}{\mathrel{\paraarrow}}
+\newcommand{\xtopara}[1]{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle #1\:$}}{\smash{\paraarrow}}}}}
+\newcommand{\ftopara}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \mathbf{f}\:$}}{\smash{\paraarrow}}}}}
+\newcommand{\itopara}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \mathbf{i}\:$}}{\smash{\paraarrow}}}}}
+\newcommand{\stopara}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle s\:$}}{\smash{\paraarrow}}}}}
+\newcommand{\otopara}{\mathrel{\smash{\stackrel{\raisebox{2pt}{$\scriptscriptstyle \mathbf{o}\:$}}{\smash{\paraarrow}}}}}
+
+%%%% Liftings
+\newcommand{\xliftto}[1]{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $#1\:$}}{\smash{\liftto}}}}}
+\newcommand{\xleftliftto}[1]{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\:#1$}}{\smash{\leftliftto}}}}}
+\newcommand{\liftto}{\rightrightarrows}
+\newcommand{\fliftto}{\xliftto{\mathbf{f}}}
+\newcommand{\iliftto}{\xliftto{\mathbf{i}}}
+\newcommand{\liliftto}{\xliftto{\mathbf{li}}}
+\newcommand{\oliftto}{\xliftto{\mathbf{o}}}
+\newcommand{\qliftto}{\xliftto{\QQ}}
+\newcommand{\leftliftto}{\mathrel{\ooalign{\raisebox{2pt}{$\leftarrow$}\cr\hfil\raisebox{-2pt}{$\leftarrow$}\hfil}}}
+\newcommand{\leftiliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{i}\:$}}{\smash{\leftliftto}}}}}
+\newcommand{\leftoliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{o}\:$}}{\smash{\leftliftto}}}}}
+\newcommand{\leftqliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\QQ\:$}}{\smash{\leftliftto}}}}}
+\newcommand{\epsiloniliftto}{\mathrel{\smash{\stackrel{\raisebox{4.6pt}{\tiny $\mathbf{i}\,\varepsilon\:$}}{\smash{\liftto}}}}}
+\newcommand{\dplift}{\mathrel{\ooalign{\raisebox{2pt}{$\paradparrow$}\cr\hfil\raisebox{-2pt}{$\paradparrow$}\hfil}}}
+\newcommand{\idpliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{i}\:$}}{\smash{\dplift}}}}}
+\newcommand{\odpliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{o}\:$}}{\smash{\dplift}}}}}
+\newcommand{\qdpliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\QQ\:$}}{\smash{\dplift}}}}}
+\newcommand{\longliftto}{\mathrel{\ooalign{\raisebox{2pt}{$\longto$}\cr\hfil\raisebox{-2pt}{$\longto$}\hfil}}}
+\newcommand{\ilongliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{i}\:$}}{\smash{\longliftto}}}}}
+\newcommand{\olongliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{o}\:$}}{\smash{\longliftto}}}}}
+\newcommand{\qlongliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\QQ\:$}}{\smash{\longliftto}}}}}
+\newcommand{\paraliftto}{\mathrel{\ooalign{\raisebox{2pt}{$\paraarrow$}\cr\hfil\raisebox{-2pt}{$\paraarrow$}\hfil}}}
+\newcommand{\xparaliftto}[1]{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $#1\:$}}{\smash{\paraliftto}}}}}
+\newcommand{\fparaliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{f}\:$}}{\smash{\paraliftto}}}}}
+\newcommand{\iparaliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{i}\:$}}{\smash{\paraliftto}}}}}
+\newcommand{\iparalifttos}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{i}\:$}}{\smash{\paraliftto}}}}_{\PP}}
+\newcommand{\oparaliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{o}\:$}}{\smash{\paraliftto}}}}}
+\newcommand{\qparaliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\QQ\:$}}{\smash{\paraliftto}}}}}
+\newcommand{\dpparaliftto}{\mathrel{\ooalign{\raisebox{2pt}{$\paradparrow$}\cr\hfil\raisebox{-2pt}{$\paradparrow$}\hfil}}}
+\newcommand{\idpparaliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{i}\:$}}{\smash{\dpparaliftto}}}}}
+\newcommand{\odpparaliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\mathbf{o}\:$}}{\smash{\dpparaliftto}}}}}
+\newcommand{\qdpparaliftto}{\mathrel{\smash{\stackrel{\raisebox{3.4pt}{\tiny $\QQ\:$}}{\smash{\dpparaliftto}}}}}
+\endinput
+
+\endinput

@@ -1,0 +1,130 @@
+\chapter{Abstract}
+
+% The abstract is a self-contained summary of the entire thesis (roughly 150--250 words).
+% It must be understandable without reading the rest of the thesis.
+% Do not use citations, unexplained abbreviations, or heavy mathematical notation.
+%
+% Follow the hourglass structure illustrated below: start broad (research area),
+% narrow to the specific contribution, then broaden again to implications.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    every node/.style={font=\sffamily\small},
+    label node/.style={font=\sffamily\footnotesize, text=white, align=center,
+                       text width=3.8cm},
+    arrow/.style={-{Stealth[length=5pt]}, thick, BrickRed!70!black}
+]
+
+%% --- hourglass geometry ---
+% The hourglass is built from two filled trapezoids (top and bottom half)
+% plus a thin waist rectangle, all in a matching color scheme.
+
+% coordinates (x,y); hourglass is 6 cm wide at top/bottom, 1.4 cm at waist
+\def\HW{3.0}   % half-width at top / bottom
+\def\WW{1.3}   % half-width at waist
+\def\TH{3.8}   % height of each trapezoid half
+\def\RH{0.40}  % half-height of waist rectangle
+
+% ---- top trapezoid (broad -> narrow) ----
+\fill[BrickRed!20!white, draw=BrickRed!70!black, line width=0.6pt]
+    (-\HW, \RH+\TH) -- (\HW, \RH+\TH)   % top edge
+    -- (\WW, \RH)   -- (-\WW, \RH)       % bottom edge (waist)
+    -- cycle;
+
+% ---- bottom trapezoid (narrow -> broad) ----
+\fill[BrickRed!20!white, draw=BrickRed!70!black, line width=0.6pt]
+    (-\WW,-\RH) -- (\WW,-\RH)            % top edge (waist)
+    -- (\HW,-\RH-\TH) -- (-\HW,-\RH-\TH) % bottom edge
+    -- cycle;
+
+% ---- waist rectangle ----
+\fill[BrickRed!70!black]
+    (-\WW,-\RH) rectangle (\WW,\RH);
+
+%% --- labels inside the hourglass bands ---
+% Top half: three bands (broad -> narrower -> waist)
+\node[label node, text=BrickRed!80!black]
+    at (0, \RH+\TH*0.82) {\textbf{Research Area}\\[1pt]
+                           broad context,\\motivation};
+
+\node[label node, text=BrickRed!80!black]
+    at (0, \RH+\TH*0.50) {\textbf{Specific Problem}\\[1pt]
+                           gap in the literature};
+
+\node[label node, text=BrickRed!80!black]
+    at (0, \RH+\TH*0.18) {\textbf{Approach}\\[1pt]
+                           key idea};
+
+% Waist: the contribution
+\node[label node, text=white, font=\sffamily\footnotesize\bfseries,
+      text width=2.4cm]
+    at (0, 0) {Main Contribution};
+
+% Bottom half: three bands (waist -> broader -> broad)
+
+\node[label node, text=BrickRed!80!black]
+    at (0, -\RH-\TH*0.30) {\textbf{Evaluation}\\[1pt]
+                             implementation \& experiments};
+
+\node[label node, text=BrickRed!80!black]
+    at (0, -\RH-\TH*0.72) {\textbf{Implications}\\[1pt]
+                             impact \& future directions};
+
+%% --- down-arrows on the left side ---
+\draw[arrow] (-\HW-0.5, \RH+\TH*0.60)
+          -- (-\HW-0.5, \RH+\TH*0.28)
+    node[midway, left, font=\sffamily\tiny, text=gray] {narrow};
+
+\draw[arrow] (-\HW-0.5, \RH+0.1)
+          -- (-\HW-0.5, -\RH-0.1)
+    node[midway, left, font=\sffamily\tiny, text=gray] {focus};
+
+\draw[arrow] (-\HW-0.5, -\RH-\TH*0.28)
+          -- (-\HW-0.5, -\RH-\TH*0.60)
+    node[midway, left, font=\sffamily\tiny, text=gray] {broaden};
+
+%% --- brace labels on the right ---
+\draw[decorate, BrickRed!60!black]
+    (\HW+0.2, \RH+\TH) -- (\HW+0.2, \RH)
+    node[midway, right=6pt, font=\sffamily\tiny, align=left,
+         text=BrickRed!70!black] {motivation\\paragraph};
+
+\draw[decorate, BrickRed!60!black]
+    (\HW+0.2, -\RH) -- (\HW+0.2, -\RH-\TH)
+    node[midway, right=6pt, font=\sffamily\tiny, align=left,
+         text=BrickRed!70!black] {results \&\\discussion};
+
+\end{tikzpicture}
+\caption*{Hourglass structure of a good abstract.
+          Start broad (research area and problem), funnel down to the specific
+          contribution, then widen again to state results and implications.}
+\end{figure}
+
+\bigskip
+
+Write a self-contained summary of roughly 150--250~words following the hourglass
+structure above.
+Cover the following five points in order:
+\begin{enumerate}
+    \item \textbf{Research area.}
+          Name the field (e.g., automated termination analysis, probabilistic
+          verification, complexity analysis of rewrite systems) and state in one
+          sentence what the field studies and why it matters.
+    \item \textbf{Specific problem.}
+          State precisely which problem this thesis addresses and why it is
+          challenging or not yet fully solved by existing approaches.
+    \item \textbf{Approach.}
+          Describe the key idea of your contribution in one or two sentences.
+          Avoid mathematical notation and abbreviations, and use informal language.
+    \item \textbf{Theoretical results.}
+          Name the main property proved (soundness, completeness, an equivalence
+          result, or a complexity bound) and state it informally.
+    \item \textbf{Implementation and evaluation (if applicable).}
+          Name the tool and the benchmark set (e.g., the Termination Problems
+          Data Base) and give the headline result: how many more examples are
+          solved compared to the baseline and what is the runtime overhead.
+    \item \textbf{Implications.}
+          Explain how your results solved the issue or fille the gap you pointed 
+          out beforehand.
+\end{enumerate}
