@@ -425,6 +425,17 @@
 \crefname{notation}{Notation}{Notations}
 \Crefname{notation}{Notation}{Notations}
 
+% hyperref anchors: the theorem counter is reset in every section, but
+% hyperref names its link targets `theorem.<n>` using only \arabic{theorem}
+% unless \theH<counter> says otherwise. Without this, Theorem 2.2.2 and
+% Theorem 3.2.2 both get the anchor `theorem.2`, and every link jumps to the
+% first one. Prefix the anchor with the (unique) section anchor instead.
+% All sibling environments share the theorem counter, so they need it too.
+\@for\env:=theorem,corollary,lemma,proposition,observation,conjecture,%
+             definition,example,notation,remark\do{%
+    \expandafter\gdef\csname theH\env\endcsname{\theHsection.\arabic{theorem}}%
+}
+
 %% tcolorboxes
 
 % Mathematical Definitions
@@ -432,34 +443,24 @@
 
 % Theorem Box
 \newtcbtheorem[use counter*=theorem]{Theorem}{Theorem}%
-{colback=Gray!10!white, colframe=BrickRed!40!Gray, coltitle=white,
+{label type=theorem, colback=Gray!10!white, colframe=BrickRed!40!Gray, coltitle=white,
   fonttitle=\textnormal, boxed title style={colback=BrickRed!40!Gray}}{thm}
 
 % Corollary Box
 \newtcbtheorem[use counter*=theorem]{Corollary}{Corollary}%
-{colback=Gray!10!white, colframe=BrickRed!40!Gray, coltitle=white,
+{label type=corollary, colback=Gray!10!white, colframe=BrickRed!40!Gray, coltitle=white,
   fonttitle=\textnormal, boxed title style={colback=BrickRed!40!Gray}}{cor}
 
 % Lemma Box
 \newtcbtheorem[use counter*=theorem]{Lemma}{Lemma}%
-{colback=Gray!10!white, colframe=BurntOrange!50!Gray, coltitle=white,
+{label type=lemma, colback=Gray!10!white, colframe=BurntOrange!50!Gray, coltitle=white,
   fonttitle=\textnormal, boxed title style={colback=BurntOrange!50!Gray}, breakable}{lem}
 
 % Definition Box
 \newtcbtheorem[use counter*=theorem]{Definition}{Definition}%
-{colback=Gray!10!white, colframe=RoyalBlue!40!Gray, coltitle=white,
+{label type=definition, colback=Gray!10!white, colframe=RoyalBlue!40!Gray, coltitle=white,
   fonttitle=\textnormal, boxed title style={colback=RoyalBlue!40!Gray},
   breakable}{def}
-
-% cleveref names for tcolorbox internal counters
-\crefname{tcb@cnt@Theorem}{Theorem}{Theorems}
-\Crefname{tcb@cnt@Theorem}{Theorem}{Theorems}
-\crefname{tcb@cnt@Corollary}{Corollary}{Corollaries}
-\Crefname{tcb@cnt@Corollary}{Corollary}{Corollaries}
-\crefname{tcb@cnt@Lemma}{Lemma}{Lemmas}
-\Crefname{tcb@cnt@Lemma}{Lemma}{Lemmas}
-\crefname{tcb@cnt@Definition}{Definition}{Definitions}
-\Crefname{tcb@cnt@Definition}{Definition}{Definitions}
 
 %% Operators
 \newcommand{\diff}{\mathop{}\!\mathrm{d}}
