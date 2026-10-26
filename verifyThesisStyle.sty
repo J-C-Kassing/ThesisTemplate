@@ -153,7 +153,8 @@
 %% Title page
 
 \newcommand*{\supervisor}[1]{\def\supname{#1}}
-\newcommand*{\examiner}[1]{\def\examname{#1}}
+\newcommand*{\firstexaminer}[1]{\def\firstexamname{#1}}
+\newcommand*{\secondexaminer}[1]{\def\secondexamname{#1}}
 \newcommand*{\degree}[1]{\def\degreename{#1}}
 \newcommand*{\authors}[1]{\def\authornames{#1}}
 \newcommand*{\addresses}[1]{\def\addressnames{#1}}
@@ -168,8 +169,9 @@
 \newcommand*{\subject}[1]{\def\subjectname{#1}}
 \newcommand*{\keywords}[1]{\def\keywordnames{#1}}
 \supervisor  {}
-\examiner    {}
-\degree      {}
+\firstexaminer {}
+\secondexaminer{}
+\degree      {Bachelor}
 \authors     {}
 \university  {{Rheinisch-Westfälische Technische Hochschule Aachen}}
 \UNIVERSITY  {{Rheinisch-Westfälische Technische Hochschule Aachen}}
@@ -199,7 +201,7 @@
       \setlength{\parskip}{0pt}
       {\large\textbf{\UNIVNAME}\par}
       \vfill
-      {\huge Bachelor Thesis \par}
+      {\huge \degreename{} Thesis \par}
       \smallskip
       {\huge \textbf{\@title} \par}
       \vfill
@@ -214,7 +216,8 @@
       \bigskip
       \bigskip
       First Examiner: \hfill Second Examiner:\\
-      Prof. Dr. Examiner 1 \hfill Prof. Dr. Examiner 1\\
+      \firstexamname \hfill \secondexamname\\
+      \ifdefempty{\supname}{}{\medskip Supervisor: \supname\\}
       \bigskip
       \bigskip
       {\Large \@date \par}
@@ -340,7 +343,7 @@
   {0.6ex plus .1ex}
 
 % ------------------------------------------------------------------
-%  \paragraph  — run-in, bold sffamily, no number, ends with em-dash
+%  \paragraph  — run-in, bold sffamily, no number
 % ------------------------------------------------------------------
 \titleformat{\paragraph}
   [runin]
@@ -348,7 +351,7 @@
   {}
   {0em}
   {}
-  [\enspace---\enspace]
+  [\enspace]
 
 \titlespacing*{\paragraph}
   {0pt}

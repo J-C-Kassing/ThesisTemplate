@@ -1,0 +1,280 @@
+\chapter{Bibliography Style}\label{app:bibliography-style}
+
+The rules below explain how to properly format the bibliography of your thesis.
+This template uses the standard Bib\TeX{} style \lstinline|plainurl|, a variant
+of \lstinline|plain| that prints DOIs as links
+(see \lstinline|\bibliographystyle| in \lstinline|main.tex|).
+All entries of this chapter are contained in \lstinline|bibliography.bib|
+and are cited here, so you can compare the source of each entry with the
+resulting output in the bibliography at the end of this thesis.
+
+%-----------------------------------------------------------------------
+\section{Authors}\label{sec:bib-authors}
+%-----------------------------------------------------------------------
+
+\begin{itemize}
+    \item Full first names, all authors, never ``et al.'' inside the entry:\\
+          \lstinline|author = {Lommen, Nils and Meyer, {\'E}l{\'e}anore and Giesl, J{\"u}rgen}|
+    \item Accents in \LaTeX{} form:\\
+          \lstinline|Giesl, J{\"u}rgen|,
+          \lstinline|Meyer, {\'E}l{\'e}anore|, \lstinline|Thiemann, Ren{\'e}|.
+    \item Name particles lowercase and braced, so they stay with the surname:\\
+          \lstinline|{von Essen}, Christian|.
+    \item Hyphenated surnames braced: \lstinline|{Schneider-Kamp}, Peter|.
+\end{itemize}
+
+%-----------------------------------------------------------------------
+\section{Titles}\label{sec:bib-titles}
+%-----------------------------------------------------------------------
+
+\begin{itemize}
+    \item Title Case for every main word, protected with braces:
+\begin{lstlisting}
+{{Proving}} {{Almost-Sure}} {{Innermost}} {{Termination}} of
+{{Probabilistic}} {{Term}} {{Rewriting}} {{Using}} {{Dependency}} {{Pairs}}
+\end{lstlisting}
+    \item Tool names in sans-serif via the macro \lstinline|\tool|, which is
+          defined in \lstinline|verifyThesisStyle.sty|, so that every tool name
+          looks the same in the text and in the bibliography:
+          \lstinline|{{\tool{AProVE}}}| yields \aprove{}.
+          The double braces protect the macro from Bib\TeX's case changes:
+\begin{lstlisting}
+{{\tool{KoAT}}}: {{Automatic Complexity}} and {{Termination Analysis}}
+of {{Integer Programs}}
+\end{lstlisting}
+    \item Mathematical symbols in titles as math: \lstinline|Non-$E$-Overlapping|.
+\end{itemize}
+
+%-----------------------------------------------------------------------
+\section{Venues}\label{sec:bib-venues}
+%-----------------------------------------------------------------------
+
+\paragraph{Conferences.}
+Use one fixed pattern, always the same for the same series:
+\lstinline|Proc.\ ACRONYM~'YY|, then series with volume, pages, and year.
+No ``Proceedings of the 30th International Conference on \ldots'', no ordinal,
+no city, no publisher.
+The following two entries are rendered as \cite{kassinggiesl2023iast} and
+\cite{ahrens2025WeightedRewritingSemiring}.
+
+\begin{lstlisting}
+@inproceedings{kassinggiesl2023iast,
+  author    = {Kassing, Jan-Christoph and Giesl, J{\"u}rgen},
+  title     = {{{Proving}} {{Almost-Sure}} {{Innermost}} {{Termination}} of
+               {{Probabilistic}} {{Term}} {{Rewriting}} {{Using}}
+               {{Dependency}} {{Pairs}}},
+  booktitle = {Proc.\ CADE~'23},
+  series    = {LNCS 14132},
+  pages     = {344--364},
+  year      = 2023,
+  doi       = {10.1007/978-3-031-38499-8_20}
+}
+
+@inproceedings{ahrens2025WeightedRewritingSemiring,
+  author    = {Ahrens, Emma and Kassing, Jan-Christoph and Giesl, J{\"u}rgen
+               and Katoen, Joost-Pieter},
+  title     = {{{Weighted}} {{Rewriting}}: {{Semiring}} {{Semantics}} for
+               {{Abstract}} {{Reduction}} {{Systems}}},
+  booktitle = {Proc.\ FSCD~'25},
+  series    = {LIPIcs 337},
+  pages     = {6:1--6:21},
+  year      = 2025,
+  doi       = {10.4230/LIPIcs.FSCD.2025.6}
+}
+\end{lstlisting}
+
+Further venue examples: \lstinline|Proc.\ IJCAR~'24| (LNCS 14739),
+\lstinline|Proc.\ TACAS~'26| (LNCS 16506), \lstinline|Proc.\ CAV~'26|
+(LNCS 16684), \lstinline|Proc.\ FroCoS~'05| (LNCS 3717),
+\lstinline|Proc.\ RTA~'10| (LIPIcs 6).
+LNAI volumes are written as LNCS.
+Joint events keep the joint acronym (\lstinline|Proc.\ RTA-TLCA~'14|).
+Workshops without a series get only pages and year (\lstinline|Proc.\ WST~'23|,
+\lstinline|Proc.\ IWC~'12|).
+
+\paragraph{Journals.}
+Use the ISO abbreviation, volume, pages, and year.
+Add the issue number only when the pages do not identify the paper (LMCS,
+article-numbered journals).
+The following entries are rendered as \cite{fuhs2011provingterminationdependency},
+\cite{arts2000termination}, and \cite{kassing2025LMCS}.
+
+\begin{lstlisting}
+@article{fuhs2011provingterminationdependency,
+  author  = {Fuhs, Carsten and Giesl, J{\"u}rgen and Parting, Michael and
+             {Schneider-Kamp}, Peter and Swiderski, Stephan},
+  title   = {{{Proving}} {{Termination}} by {{Dependency}} {{Pairs}} and
+             {{Inductive}} {{Theorem}} {{Proving}}},
+  journal = {J.\ Autom.\ Reason.},
+  volume  = 47,
+  pages   = {133--160},
+  year    = 2011,
+  doi     = {10.1007/s10817-010-9215-9}
+}
+
+@article{arts2000termination,
+  author  = {Arts, Thomas and Giesl, J{\"u}rgen},
+  title   = {{{Termination}} of {{Term}} {{Rewriting}} {{Using}}
+             {{Dependency}} {{Pairs}}},
+  journal = {Theor.\ Comput.\ Sci.},
+  volume  = 236,
+  pages   = {133--178},
+  year    = 2000,
+  doi     = {10.1016/S0304-3975(99)00207-8}
+}
+
+@article{kassing2025LMCS,
+  author  = {Kassing, Jan-Christoph and Giesl, J{\"u}rgen},
+  title   = {{{From}} {{Innermost}} to {{Full}} {{Probabilistic}} {{Term}}
+             {{Rewriting}}: {{Almost-Sure}} {{Termination}}, {{Complexity}},
+             and {{Modularity}}},
+  journal = {Log.\ Methods Comput.\ Sci.},
+  volume  = 21,
+  number  = 4,
+  year    = 2025,
+  doi     = {10.46298/lmcs-21(4:28)2025}
+}
+\end{lstlisting}
+
+Other journal abbreviations:
+\begin{lstlisting}
+J.\ ACM                          Inf.\ Comput.
+J.\ Symb.\ Comput.               Inf.\ Process.\ Lett.
+ACM Trans.\ Comput.\ Log.        J.\ Log.\ Algebr.\ Methods Program.
+\end{lstlisting}
+
+\paragraph{Book chapters.}
+Use \lstinline|@incollection| with \lstinline|booktitle|, \lstinline|editor|,
+\lstinline|publisher|, series, and pages.
+The following entry is rendered as \cite{brockschmidt2010TerminationGraphsJava}.
+
+\begin{lstlisting}
+@incollection{brockschmidt2010TerminationGraphsJava,
+  author    = {Brockschmidt, Marc and Otto, Carsten and {von Essen}, Christian
+               and Giesl, J{\"u}rgen},
+  title     = {{{Termination}} {{Graphs}} for {{\tool{Java}}} {{Bytecode}}},
+  booktitle = {Verification, {{Induction}}, {{Termination Analysis}}},
+  editor    = {Siegler, Simon and Wasser, Nathan},
+  publisher = {Springer},
+  series    = {LNCS 6463},
+  pages     = {17--37},
+  year      = 2010,
+  doi       = {10.1007/978-3-642-17172-7_2}
+}
+\end{lstlisting}
+
+\paragraph{Theses.}
+Use \lstinline|@phdthesis| or \lstinline|@mastersthesis| with the university
+in \lstinline|school|.
+The following entries are rendered as \cite{thiemann_diss:2007} and
+\cite{kassing:thesis:2022}.
+
+\begin{lstlisting}
+@phdthesis{thiemann_diss:2007,
+  author = {Thiemann, Ren{\'e}},
+  title  = {{{The}} {{DP}} {{Framework}} for {{Proving}} {{Termination}} of
+            {{Term}} {{Rewriting}}},
+  school = {RWTH Aachen University},
+  year   = 2007
+}
+
+@mastersthesis{kassing:thesis:2022,
+  author = {Kassing, Jan-Christoph},
+  title  = {{{Using}} {{Dependency}} {{Pairs}} for {{Proving}} {{Almost-Sure}}
+            {{Termination}} of {{Probabilistic}} {{Term}} {{Rewriting}}},
+  school = {RWTH Aachen University},
+  year   = 2022
+}
+\end{lstlisting}
+
+A bachelor's thesis is entered as \lstinline|@mastersthesis| with
+\lstinline|type = {Bachelor's thesis}|.
+
+\paragraph{Technical reports.}
+Use \lstinline|@techreport| with \lstinline|number = {Technical Report ...}|
+and \lstinline|institution = {...}|.
+
+\paragraph{Online material.}
+Use \lstinline|@misc| with the URL and access date in \lstinline|note|.
+The following entry is rendered as \cite{aprove-website}.
+
+\begin{lstlisting}
+@misc{aprove-website,
+  key  = {{\relax APrW}},
+  note = {Website of \tool{AProVE}:
+          \url{https://aprove.informatik.rwth-aachen.de/}.
+          Accessed: 2026-07-19}
+}
+\end{lstlisting}
+
+%-----------------------------------------------------------------------
+\section{DOI}\label{sec:bib-doi}
+%-----------------------------------------------------------------------
+
+Every entry that has a DOI gets \lstinline|doi = {10.|\ldots\lstinline|}|.
+The style renders it as a link.
+Workshop papers without a DOI get the proceedings URL in \lstinline|note|.
+Never put a URL into the \lstinline|doi| field.
+
+%-----------------------------------------------------------------------
+\section{Non-English Sources}\label{sec:bib-non-english}
+%-----------------------------------------------------------------------
+
+Add \lstinline|note = {In Japanese}| (or the respective language) for papers
+in non-English journals.
+
+%-----------------------------------------------------------------------
+\section{Results}\label{sec:bib-results}
+%-----------------------------------------------------------------------
+
+With these fields the style produces, uniformly:
+
+\begin{quote}
+    Jan-Christoph Kassing and Jürgen Giesl. Proving Almost-Sure Innermost
+    Termination of Probabilistic Term Rewriting Using Dependency Pairs. In
+    \emph{Proc.\ CADE~'23}, LNCS 14132, pages 344--364, 2023.
+    doi:10.1007/978-3-031-38499-8\_20.
+\end{quote}
+
+\begin{quote}
+    Carsten Fuhs, Jürgen Giesl, Michael Parting, Peter Schneider-Kamp, and
+    Stephan Swiderski. Proving Termination by Dependency Pairs and Inductive
+    Theorem Proving. \emph{J.\ Autom.\ Reason.}, 47:133--160, 2011.
+    doi:10.1007/s10817-010-9215-9.
+\end{quote}
+
+\begin{quote}
+    Nils Lommen, Éléanore Meyer, and Jürgen Giesl. Control-Flow Refinement for
+    Complexity Analysis of Probabilistic Programs in \tool{KoAT} (Short Paper).
+    In \emph{Proc.\ IJCAR~'24}, LNCS 14739, pages 233--243, 2024.
+    doi:10.1007/978-3-031-63498-7\_14.
+\end{quote}
+
+These are the entries \cite{kassinggiesl2023iast},
+\cite{fuhs2011provingterminationdependency}, and \cite{lommen2024KoATShortPaper}
+in the bibliography of this thesis.
+
+%-----------------------------------------------------------------------
+\section{Ordering}\label{sec:bib-ordering}
+%-----------------------------------------------------------------------
+
+The bibliography is sorted alphabetically by author, not by order of citation:
+first by the surname of the first author, then by the following authors, then
+by year, then by title.
+Entries without authors (websites, tools) sort under their \lstinline|key|
+field, which also determines their label (see the \lstinline|@misc| example
+in \cref{sec:bib-venues}).
+Particles are part of the surname for sorting, so
+\lstinline|{von Essen}, Christian| is filed under V (between Thiemann and
+Wasser), not under E.
+For the examples above this gives the order
+\begin{quote}
+    Arts, Giesl (2000) -- Brockschmidt, Otto, von Essen, Giesl (2010) --
+    Fuhs, Giesl, Parting, Schneider-Kamp, Swiderski (2011) --
+    Kassing, Giesl (2023) -- Kassing, Giesl (2025) --
+    Lommen, Meyer, Giesl (2024) -- Thiemann (2007).
+\end{quote}
+
+Keep the \lstinline|.bib| file itself in the same order (e.g., with
+\lstinline|bibtool -s|, sort key first author and year), so that
+inconsistencies between entries of the same author are easy to spot.

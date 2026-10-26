@@ -18,7 +18,7 @@ A good evaluation chapter:
 The implementation section should cover:
 \begin{enumerate}
     \item The name of the tool extended and a brief description of its overall
-          architecture (e.g., the pipeline from input parsing to proof output). 
+          architecture (e.g., the pipeline from input parsing to proof output)
           and any external solvers used.
     \item Which module(s) you added or changed and how they fit into the existing 
           architecture.
@@ -63,20 +63,20 @@ The results section should:
 
 \begin{table}[H]
     \centering
-    \caption{Experimental results on [\textit{benchmark set name}].
+    \caption{Experimental results on [benchmark set name].
              \emph{YES}/\emph{NO} denotes the number of examples for which
-             [\textit{the property / its negation}] was proved.
+             [the property / its negation] was proved.
              \emph{MAYBE} means the tool returned no answer.
              \emph{TO} means the timeout was exceeded.
-             \emph{Time} is the total wall-clock time in seconds.}
+             \emph{Avg.~Time} is the average wall-clock time per example in seconds.}
     \label{tab:results}
     \begin{tabular}{lccccc}
         \toprule
         \textbf{Configuration} &
-        \textbf{YES} & \textbf{NO} & \textbf{MAYBE}& \textbf{Avg.~Time~(s)} \\
+        \textbf{YES} & \textbf{NO} & \textbf{MAYBE} & \textbf{TO} & \textbf{Avg.~Time~(s)} \\
         \midrule
-        \textit{Tool without extension} & -- & -- & -- & -- \\
-        \textit{Tool with extension}    & -- & -- & -- & -- \\
+        {[Tool without extension]} & -- & -- & -- & -- & -- \\
+        {[Tool with extension]}    & -- & -- & -- & -- & -- \\
         \bottomrule
     \end{tabular}
 \end{table}

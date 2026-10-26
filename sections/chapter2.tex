@@ -5,8 +5,10 @@ by naming each section and stating what it covers.
 
 In the preliminaries you can name the formalism studied (e.g., term rewriting 
 systems, integer transition systems, probabilistic programs) and cite a 
-standard reference for further reading, e.g., \cite{baader_nipkow_1999}. 
+standard reference for further reading, e.g., \cite{baader_nipkow_1999}.
 Do not add a citation to every definition.
+Format all entries of your bibliography as described in
+\cref{app:bibliography-style}.
 %-----------------------------------------------------------------------
 \section{Basic Definitions}\label{sec:basic-definitions}
 %-----------------------------------------------------------------------
@@ -41,9 +43,12 @@ Cover the following in order:
 % --- EXAMPLE: style illustration from a thesis on term rewriting ---
 % Replace the definitions below with those relevant to your own topic.
 
-In the begging, we start by defining [Basic Notion] that is used throughout the 
+In the beginning, we start by defining [Basic Notion] that is used throughout the 
 remainder of this thesis.
 
+% The second argument of the box is its label. The box automatically adds the
+% prefix "def:", so this definition is referenced via \cref{def:first-notion}.
+% Do not add an extra \label inside the box.
 \begin{Definition}{[Name of First Basic Notion]}{first-notion}
     A [Thing] is [Basic Notion] if it satisfies [Property 1] and [Property 2].
     % Define the most elementary object of the formalism.
@@ -61,9 +66,64 @@ The reason for requiring [Property 1] is [...].
 \end{example}
 
 \begin{example}\label{ex:first-notion-second-example}
-    % You can add several examples for one definition, if the definition 
+    % You can add several examples for one definition, if the definition
     % is complex and hard to understand.
 \end{example}
+
+\subsection*{How to Reference Definitions, Theorems, and Examples}
+
+Never write numbers like ``Definition 2.1.1'' by hand.
+Instead, refer to the label with \lstinline|\cref|, which prints the type and
+the number and turns both into a clickable link.
+For example, \lstinline|\cref{def:first-notion}| yields \cref{def:first-notion},
+and \lstinline|\cref{ex:first-notion}| yields \cref{ex:first-notion}.
+How the label is set depends on the environment:
+\begin{itemize}
+    \item \textbf{Boxes} (\lstinline|Definition|, \lstinline|Theorem|,
+          \lstinline|Lemma|, \lstinline|Corollary|) take the label as their
+          second argument, \emph{without} prefix.
+          The box adds the prefix itself, so\\
+          \lstinline|\begin{Definition}{Title}{first-notion}|\\
+          creates the label \lstinline|def:first-notion|.
+    \item \textbf{All other environments} (\lstinline|example|,
+          \lstinline|remark|, \lstinline|notation|, \lstinline|equation|,
+          \lstinline|table|, \ldots) and sectioning commands get an explicit
+          \lstinline|\label|, and you choose the prefix yourself, e.g.,
+          \lstinline|\begin{example}\label{ex:first-notion}|.
+          For tables and figures, put the \lstinline|\label| after the
+          \lstinline|\caption|.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \caption{How to label and reference the most common environments.}
+    \label{tab:cross-references}
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{You write} & \textbf{Reference with} & \textbf{Output} \\
+        \midrule
+        \lstinline|\begin{Definition}{...}{first-notion}| & \lstinline|\cref{def:first-notion}| & \cref{def:first-notion} \\
+        \lstinline|\begin{Lemma}{...}{aux-lemma}|          & \lstinline|\cref{lem:aux-lemma}|    & \cref{lem:aux-lemma} \\
+        \lstinline|\begin{Theorem}{...}{key-theorem}|      & \lstinline|\cref{thm:key-theorem}|  & \cref{thm:key-theorem} \\
+        \lstinline|\begin{Corollary}{...}{key-corollary}|  & \lstinline|\cref{cor:key-corollary}| & \cref{cor:key-corollary} \\
+        \lstinline|\begin{example}\label{ex:first-notion}| & \lstinline|\cref{ex:first-notion}|  & \cref{ex:first-notion} \\
+        \lstinline|\section{...}\label{sec:known-results}| & \lstinline|\cref{sec:known-results}| & \cref{sec:known-results} \\
+        \lstinline|\chapter{...}\label{chap:main-chapter}| & \lstinline|\cref{chap:main-chapter}| & \cref{chap:main-chapter} \\
+        \lstinline|\caption{...}\label{tab:results}|       & \lstinline|\cref{tab:results}|      & \cref{tab:results} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Further useful variants:
+\begin{itemize}
+    \item Several labels at once:\\
+          \lstinline|\cref{ex:first-notion,ex:first-notion-second-example}|
+          yields ``\cref{ex:first-notion,ex:first-notion-second-example}''.
+    \item Only the number, e.g., inside a sentence that already names the type:\\
+          \lstinline|\ref{def:first-notion}| yields ``\ref{def:first-notion}''.
+    \item The page: \lstinline|\cpageref{thm:key-theorem}| yields
+          ``\cpageref{thm:key-theorem}''.
+\end{itemize}
 
 
 %-----------------------------------------------------------------------
@@ -128,8 +188,10 @@ Organize them as follows:
     The complete proof can be found in \cite{giesl2006mechanizing}.
 \end{proof}
 
-\begin{example}
-    Apply the theorem above to a concrete example.
+% Boxes are referenced like this, see \cref{tab:cross-references}.
+\begin{example}\label{ex:key-theorem}
+    Apply \cref{thm:key-theorem} to a concrete example.
+    Its proof relies on \cref{lem:aux-lemma}.
     Demonstrate both a case where the result applies successfully and,
     if possible, a case where it fails due to the restriction identified above.
     The failing case motivates the extension in \cref{chap:main-chapter}.
@@ -144,8 +206,8 @@ Organize them as follows:
     The complete proof can be found in \cite{giesl2006mechanizing}.
 \end{proof}
 
-\begin{example}
-
+\begin{example}\label{ex:key-corollary}
+    Example for \cref{cor:key-corollary}.
 \end{example}
 
 % Add further Lemma and Theorem boxes as needed.

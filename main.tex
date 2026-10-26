@@ -3,11 +3,9 @@
 
 \usepackage{verifyThesisStyle}           % Custom style
 \usepackage{kantlipsum}      % Dummy text
-\usepackage[dvipsnames]{xcolor} % Colors
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage[most]{tcolorbox}
 \usepackage{booktabs}
 
 \setlrmarginsandblock{2.5cm}{2.5cm}{*}
@@ -29,6 +27,7 @@
     sections/chapter3,
     sections/chapter4,
     sections/conclusion,
+    sections/bibliography-style,
 }
 
 \begin{document}
@@ -38,6 +37,10 @@
     % Set up the Title Page
     \title{A Very Nice Bachelor Topic}
     \authors{Jan-Christoph Kassing}
+    \degree        {Bachelor}  % or Master
+    \firstexaminer {[Prof.\ Dr.\ Name of First Examiner]}
+    \secondexaminer{[Prof.\ Dr.\ Name of Second Examiner]}
+    \supervisor    {[Name of Supervisor]}  % leave empty to omit this line
                 
     \addresses  {\groupname\\\deptname\\\univname}
     \date       {\today}
@@ -63,9 +66,13 @@
     \include{sections/chapter4}
     \include{sections/conclusion}
 
+    \appendix          % Chapters are now numbered A, B, ... and called "Appendix".
+
+    \include{sections/bibliography-style}
+
     \backmatter         % Folios in Arabic numerals, unnumbered chapters.
     
-    \bibliographystyle{plain}  % Use the "unsrtnat" BibTeX style for formatting the Bibliography
-    \bibliography{Bibliography}  % The references (bibliography) information are stored in the file named "Bibliography.bib"
+    \bibliographystyle{plainurl}  % Like "plain" (sorted alphabetically), but prints DOIs as links, see Appendix A
+    \bibliography{bibliography}  % The references (bibliography) information are stored in the file named "bibliography.bib"
 
 \end{document}
