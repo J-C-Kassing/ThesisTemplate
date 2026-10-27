@@ -1,0 +1,36 @@
+\chapter{Omitted Proofs}\label{app:omitted-proofs}
+
+This appendix contains the full proofs that were omitted from the main text.
+Move a proof here if it is long or very technical and would interrupt the
+flow of the main text.
+Short proofs and proofs that contain an important idea stay in the main text.
+
+For every proof that you move here, follow this pattern:
+\begin{enumerate}
+    \item In the main text, directly after the statement, give a proof sketch
+          that explains the main idea in a few sentences and refers to the
+          full proof, e.g., ``The full proof can be found in
+          \cref{app:proof-main}.''
+          See the proof sketch of \cref{thm:main} for an example.
+    \item Here, start a new section for each proof and begin the proof by
+          referring back to the statement it proves, e.g., ``Proof of
+          \cref{thm:main}'', so that the reader can jump back to it.
+    \item Keep the order of the main text.
+\end{enumerate}
+
+%-----------------------------------------------------------------------
+\section{Proof of [Name of Main Theorem]}\label{app:proof-main}
+%-----------------------------------------------------------------------
+
+% The optional argument of the proof environment replaces the word "Proof".
+% The \cref inside it links back to the statement in the main text.
+\begin{proof}[Proof of \cref{thm:main}]
+    Recall the statement of \cref{thm:main}: [informal restatement of the
+    theorem].
+    % Restate the theorem informally, so that the reader does not have to
+    % jump back to the main text to understand what is proven here.
+
+    [Full proof, structured into numbered cases for long arguments.
+    Reference definitions and earlier results by label, e.g.,
+    \cref{def:key1} and \cref{lem:auxiliary}.]
+\end{proof}

@@ -28,6 +28,8 @@
     sections/chapter4,
     sections/conclusion,
     sections/bibliography-style,
+    sections/omitted-proofs,
+    sections/mathematical-writing,
 }
 
 \begin{document}
@@ -66,13 +68,15 @@
     \include{sections/chapter4}
     \include{sections/conclusion}
 
-    \appendix          % Chapters are now numbered A, B, ... and called "Appendix".
-
-    \include{sections/bibliography-style}
-
     \backmatter         % Folios in Arabic numerals, unnumbered chapters.
     
     \bibliographystyle{plainurl}  % Like "plain" (sorted alphabetically), but prints DOIs as links, see Appendix A
     \bibliography{bibliography}  % The references (bibliography) information are stored in the file named "bibliography.bib"
+
+    \appendix          % Chapters are now numbered A, B, ... and called "Appendix".
+
+    \include{sections/bibliography-style}
+    \include{sections/omitted-proofs}
+    \include{sections/mathematical-writing}
 
 \end{document}

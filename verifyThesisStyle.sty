@@ -141,6 +141,13 @@
 \RequirePackage{varioref}
 \RequirePackage[pdfusetitle]{hyperref}
 \RequirePackage[nameinlink, capitalize, noabbrev]{cleveref}
+% cleveref does not notice memoir's \appendix, so appendix chapters would be
+% referenced as "Chapter A". Make it print "Appendix A" and "Appendix A.1".
+\g@addto@macro\appendix{%
+    \crefalias{chapter}{appendix}%
+    \crefalias{section}{subappendix}%
+    \crefalias{subsection}{subsubappendix}%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MEMOIR SETTINGS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

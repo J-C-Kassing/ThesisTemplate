@@ -60,6 +60,9 @@ Each result in this section should be presented as follows:
           \end{itemize}
     \item Provide a complete proof, structured into numbered cases for long
           arguments.  Reference definitions and earlier results by label.
+          If a proof is long or very technical, give a proof sketch here and
+          move the full proof to \cref{app:omitted-proofs}
+          (see \cref{thm:main} for an example).
     \item Apply the theorem to the running example from \cref{ex:key1},
           walking through every step explicitly.
 \end{enumerate}
@@ -78,8 +81,11 @@ Each result in this section should be presented as follows:
 
 \end{Theorem}
 
-\begin{proof}
-
+% Proof sketch in the main text, full proof in the appendix.
+% The optional argument of the proof environment replaces the word "Proof".
+\begin{proof}[Proof Sketch]
+    [Main idea of the proof in a few sentences.]
+    The full proof can be found in \cref{app:proof-main}.
 \end{proof}
 
 \begin{example}\label{ex:main}

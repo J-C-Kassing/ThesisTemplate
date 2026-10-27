@@ -1,0 +1,279 @@
+\chapter{Mathematical Writing}\label{app:mathematical-writing}
+
+The guidelines below summarize how to write a clear mathematical thesis.
+They are taken from classic sources on mathematical and scientific writing,
+which are worth reading in full:
+Halmos~\cite{halmos1970HowWriteMathematics},
+Knuth et al.~\cite{knuth1989MathematicalWriting},
+Gopen and Swan~\cite{gopen1990ScienceScientificWriting},
+Lamport~\cite{lamport2012HowWrite21st},
+Zobel~\cite{zobel2014WritingComputerScience}, and
+Higham~\cite{higham2020HandbookWritingMathematical}.
+The guiding principle behind all of them is that you write for the
+\emph{reader}: a fellow student who knows the basics of computer science
+but not your topic.
+Everything that makes the reader stop, search, or guess is a problem of the
+text, not of the reader.
+
+%-----------------------------------------------------------------------
+\section{Structure and Flow}\label{sec:mw-structure}
+%-----------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Intuition first, then formality, then an example.}
+          Before each definition or theorem, say in words what it formalizes
+          and why it is needed.
+          After it, illustrate it with an example.
+          Use one running example throughout a chapter instead of many
+          unrelated ones.
+    \item \textbf{One topic per paragraph.}
+          The first sentence of a paragraph states its topic, the remaining
+          sentences develop it.
+    \item \textbf{Old information first, new information last.}
+          Start a sentence with what the reader already knows and put the new
+          or important part at the end, where the reader expects the emphasis.
+          Keep the subject and its verb close together.
+    \item \textbf{Signposting.}
+          Begin every chapter by saying what it contains and end it by
+          summarizing what was achieved and where it is used next.
+          Within long sections, tell the reader where the argument is going
+          (``To prove \cref{thm:main}, we first show two auxiliary lemmas.'').
+    \item \textbf{Present only what you need.}
+          The preliminaries contain exactly the notions used later.
+          Do not include definitions or results ``for completeness'' that
+          play no role in your thesis.
+\end{itemize}
+
+%-----------------------------------------------------------------------
+\section{Definitions and Notation}\label{sec:mw-notation}
+%-----------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Define everything before you use it,} and define it only
+          once.
+          If a notion was defined many pages before, recall it briefly and
+          refer to the definition (``Recall that a term is \emph{linear} if
+          \ldots{} (see \cref{def:first-notion}).'').
+    \item \textbf{Emphasize the defined term} where it is defined, e.g.,
+          ``A relation is called \emph{terminating} if \ldots''.
+    \item \textbf{Definitions use ``if'' and ``$=$''.}
+          In a definition, ``if'' already means ``if and only if'', so never
+          write ``iff'' or ``if and only if'' in a definition.
+          Likewise, define objects with ``$=$'' (``Let $f(x) = x + 1$.''),
+          not with \lstinline|:=|, \lstinline|\coloneqq|, or
+          \lstinline|::=|.
+          Use ``iff'' or ``if and only if'' only in statements that you prove,
+          e.g., in a theorem or lemma, where both directions have to be shown.
+    \item \textbf{One symbol, one meaning.}
+          Never use the same symbol for two different objects, and never use
+          two symbols for the same object.
+          Keep the conventions consistent: e.g., lowercase letters for
+          elements, uppercase letters for sets, calligraphic letters for
+          systems.
+    \item \textbf{Do not introduce notation that is used only once.}
+          Every new symbol is a burden for the reader; a few words are often
+          clearer.
+    \item \textbf{One word, one concept.}
+          In technical writing, varying the words for the same concept (term,
+          expression, object) suggests that they mean different things.
+          Pick one word and stick to it.
+    \item \textbf{Use standard notation} wherever it exists, e.g., the
+          notation of the standard textbook of your area.
+          If your thesis uses many symbols, add a list of notation to the
+          front matter.
+\end{itemize}
+
+%-----------------------------------------------------------------------
+\section{Formulas in the Text}\label{sec:mw-formulas}
+%-----------------------------------------------------------------------
+
+Mathematical formulas are part of the sentences they appear in and follow the
+same rules of grammar and punctuation.
+
+\begin{itemize}
+    \item \textbf{Do not start a sentence with a symbol.}
+    \item \textbf{Do not separate two formulas by only a punctuation mark};
+          put words in between.
+    \item \textbf{Do not use logical symbols as abbreviations in prose.}
+          Symbols like $\forall$, $\exists$, $\Rightarrow$, or $\wedge$
+          belong inside formulas, not between words.
+    \item \textbf{Punctuate displayed formulas.}
+          A displayed formula ends with a comma or a period if the sentence
+          does, e.g.,
+          \begin{equation}\label{eq:mw-geometric-sum}
+              \sum_{i=0}^{n} 2^i = 2^{n+1} - 1,
+          \end{equation}
+          where $n \in \IN$.
+    \item \textbf{Numbering.}
+          Use \lstinline|\begin{equation}| with a \lstinline|\label| for
+          displayed formulas that you refer to, and refer to them with
+          \lstinline|\cref|, e.g., \lstinline|\cref{eq:mw-geometric-sum}|
+          yields \cref{eq:mw-geometric-sum}.
+          Use \lstinline|\begin{equation*}| for formulas that are never
+          referenced.
+    \item \textbf{Words in formulas} are set with \lstinline|\text|, and
+          operator names with \lstinline|\operatorname| or the predefined
+          commands such as \lstinline|\max| and \lstinline|\log|, so that they
+          are not typeset as products of variables:
+          $\max(x, y)$ instead of $max(x, y)$.
+    \item \textbf{Use the right symbols:}
+          \lstinline|\colon| for the type of a function
+          ($f \colon \IN \to \IN$),
+          \lstinline|\mid| in set comprehensions
+          ($\set{x \in \IN \mid x > 0}$),
+          \lstinline|\ldots| between commas ($x_1, \ldots, x_n$), and
+          \lstinline|\cdots| between operators ($x_1 + \cdots + x_n$).
+\end{itemize}
+
+The following table shows typical mistakes and how to avoid them.
+
+\begin{table}[H]
+    \centering
+    \caption{Typical mistakes in mathematical prose.}
+    \label{tab:mw-mistakes}
+    \begin{tabular}{p{0.44\textwidth}p{0.48\textwidth}}
+        \toprule
+        \textbf{Avoid} & \textbf{Prefer} \\
+        \midrule
+        $x$ is positive, so \ldots
+        & The value $x$ is positive, so \ldots \\
+        \addlinespace
+        Since $x > 0$, $y < 0$.
+        & Since $x > 0$, we have $y < 0$. \\
+        \addlinespace
+        $\forall x \in S$ we have $x > 0$.
+        & For all $x \in S$, we have $x > 0$. \\
+        \addlinespace
+        If $n$ is even $\Rightarrow$ $n^2$ is even.
+        & If $n$ is even, then $n^2$ is even. \\
+        \addlinespace
+        As shown in Theorem 2.2.2, \ldots
+        & As shown in \cref{thm:key-theorem}, \ldots \\
+        \addlinespace
+        This follows from it.
+        & This lemma follows from \cref{thm:key-theorem}. \\
+        \addlinespace
+        Obviously, the relation is terminating.
+        & The relation is terminating, since every rule decreases the size
+          of the term. \\
+        \addlinespace
+        (Definition) A term is \emph{linear} iff \ldots
+        & (Definition) A term is \emph{linear} if \ldots \\
+        \addlinespace
+        (Definition) Let $f(x) \coloneqq x + 1$.
+        & (Definition) Let $f(x) = x + 1$. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+%-----------------------------------------------------------------------
+\section{Theorems and Proofs}\label{sec:mw-proofs}
+%-----------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Self-contained statements.}
+          A theorem lists all of its assumptions.
+          Avoid statements like ``Under the assumptions above, \ldots'', since
+          the reader has to search for what ``above'' means.
+    \item \textbf{Explain the significance} of every result: why it is
+          needed, how it is used later, and what it means intuitively.
+    \item \textbf{Announce the structure of a proof} at its beginning
+          (``We prove the claim by induction on $n$.'',
+          ``Assume for a contradiction that \ldots'').
+          Mark every case clearly and state the induction hypothesis
+          explicitly.
+    \item \textbf{Justify every step} and refer to the definition or result
+          it uses by its label.
+          Structure long proofs hierarchically into numbered steps, each with
+          its own short justification.
+    \item \textbf{Avoid ``obviously'', ``clearly'', and ``trivially''.}
+          If a step is obvious, these words are unnecessary; if it is not, they
+          hide a gap.
+          Give the reason instead.
+    \item \textbf{Long proofs go to the appendix.}
+          Give a proof sketch in the main text and move the full proof to
+          \cref{app:omitted-proofs}.
+    \item \textbf{Apply the result to an example} after the proof, ideally
+          to the running example.
+\end{itemize}
+
+The following lemma and its proof illustrate these guidelines.
+The lemma explains its significance before the statement, the proof
+announces its structure, marks both cases, states the induction hypothesis,
+and justifies the only non-trivial step.
+
+We now show that the sum of the first $n$ odd numbers is a square number.
+This allows us to compute such sums without adding up all summands.
+
+\begin{Lemma}{Sum of Odd Numbers}{mw-odd-sum}
+    For all $n \in \IN$, we have
+    \begin{equation}\label{eq:mw-odd-sum}
+        \sum_{i=1}^{n} (2i - 1) = n^2.
+    \end{equation}
+\end{Lemma}
+
+\begin{proof}
+    We prove the claim by induction on $n$.
+
+    \textbf{Base case ($n = 0$).}
+    The sum on the left-hand side of \cref{eq:mw-odd-sum} is empty, so it is
+    $0 = 0^2$.
+
+    \textbf{Induction step ($n \to n + 1$).}
+    As induction hypothesis, assume that \cref{eq:mw-odd-sum} holds for $n$.
+    By splitting off the last summand and applying the induction hypothesis,
+    we obtain
+    \begin{equation*}
+        \sum_{i=1}^{n+1} (2i - 1)
+        = \sum_{i=1}^{n} (2i - 1) + 2(n + 1) - 1
+        = n^2 + 2n + 1
+        = (n + 1)^2,
+    \end{equation*}
+    so \cref{eq:mw-odd-sum} also holds for $n + 1$.
+\end{proof}
+
+%-----------------------------------------------------------------------
+\section{Language and Style}\label{sec:mw-language}
+%-----------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Use ``we''} consistently, meaning the author and the reader
+          (``We now show that \ldots'').
+          Never use ``I''!
+    \item \textbf{Prefer the active voice and the present tense}
+          (``\Cref{thm:main} shows \ldots'').
+          Use the past tense only for things that happened at a specific
+          time, e.g., when you describe the experiments you ran.
+    \item \textbf{Be precise.}
+          Replace vague words like ``very'', ``quite'', ``some'', or ``a lot''
+          by concrete statements or numbers
+          (``solves 23 more examples'' instead of ``solves many more
+          examples'').
+          Avoid ambiguous ``it'' and ``this'' and name the object instead.
+    \item \textbf{Abbreviations} are spelled out at their first use, e.g.,
+          ``dependency pairs (DPs)'', and are not used in the abstract.
+    \item \textbf{Spelling.}
+          Use either American or British English consistently, and run a
+          spell checker before submission.
+          Write ``e.g.,'' and ``i.e.,'' with a comma afterwards.
+\end{itemize}
+
+%-----------------------------------------------------------------------
+\section{Figures and Tables}\label{sec:mw-figures}
+%-----------------------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Every figure and table is referenced} in the text with
+          \lstinline|\cref|, and the text explains what the reader should
+          see in it.
+    \item \textbf{Captions are self-contained}: a reader who only looks at
+          the figure and its caption should understand what is shown,
+          including the meaning of all abbreviations and units.
+    \item \textbf{Tables} use horizontal rules only (\lstinline|\toprule|,
+          \lstinline|\midrule|, \lstinline|\bottomrule| from
+          \lstinline|booktabs|) and no vertical rules, see
+          \cref{tab:mw-mistakes} and \cref{tab:results}.
+    \item \textbf{Colors} must not be the only way to distinguish
+          information: the thesis has to be readable in black and white and
+          by readers with color vision deficiency.
+\end{itemize}
